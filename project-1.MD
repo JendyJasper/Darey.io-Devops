@@ -29,14 +29,15 @@
 - Then, create and open a new configuration file in Apache’s `sites-available` directory using your preferred command-line editor. Here, we’ll be using `vi or vim`
 - Run the command `sudo vi /etc/apache2/sites-available/projectlamp.conf`
 - This will create a new blank file. Paste in the following bare-bones configuration by hitting on i on the keyboard to enter the insert mode, and paste the text: 
-  ``` <VirtualHost *:80>
+  ``` 
+   <VirtualHost *:80>
     ServerName projectlamp
     ServerAlias www.projectlamp 
     ServerAdmin webmaster@localhost
     DocumentRoot /var/www/projectlamp
     ErrorLog ${APACHE_LOG_DIR}/error.log
     CustomLog ${APACHE_LOG_DIR}/access.log combined
-</VirtualHost> 
+   </VirtualHost> 
  
 - To save and close the file, simply follow the steps below:
 > Hit the esc button on the keyboard
