@@ -28,14 +28,16 @@
 - Next, assign ownership of the directory with your current system user: `sudo chown -R $USER:$USER /var/www/projectlamp`
 - Then, create and open a new configuration file in Apache’s `sites-available` directory using your preferred command-line editor. Here, we’ll be using `vi or vim`
 - Run the command `sudo vi /etc/apache2/sites-available/projectlamp.conf`
-- This will create a new blank file. Paste in the following bare-bones configuration by hitting on i on the keyboard to enter the insert mode, and paste the text: ` <VirtualHost *:80>
+- This will create a new blank file. Paste in the following bare-bones configuration by hitting on i on the keyboard to enter the insert mode, and paste the text: 
+  ``` <VirtualHost *:80>
     ServerName projectlamp
     ServerAlias www.projectlamp 
     ServerAdmin webmaster@localhost
     DocumentRoot /var/www/projectlamp
     ErrorLog ${APACHE_LOG_DIR}/error.log
     CustomLog ${APACHE_LOG_DIR}/access.log combined
-</VirtualHost> `
+</VirtualHost> 
+ 
 - To save and close the file, simply follow the steps below:
 > Hit the esc button on the keyboard
  Type :
@@ -52,4 +54,28 @@
 - You can also use the public DNS name; ec2-54-237-44-210.compute-1.amazonaws.com. Result must be the same
   > You can leave this file in place as a temporary landing page for your application until you set up an index.php file to replace it. Once you do that, remember to remove or rename the index.html file from your document root, as it would take precedence over an index.php file by default.
 
+  ## ENABLE PHP ON THE WEBSITE
+  > With the default DirectoryIndex settings on Apache, a file named index.html will always take precedence over an index.php file. This is useful for setting up maintenance pages in PHP applications, by creating a temporary index.html file containing an informative message to visitors. Because this page will take precedence over the index.php page, it will then become the landing page for the application. Once maintenance is over, the index.html is renamed or removed from the document root, bringing back the regular application page.
+In case you want to change this behavior, you’ll need to edit the /etc/apache2/mods-enabled/dir.conf file and change the order in which the index.php file is listed within the DirectoryIndex directive:
+  `sudo vim /etc/apache2/mods-enabled/dir.conf`
+  
+   ```
+  <IfModule mod_dir.c>
+        #Change this:
+        #DirectoryIndex index.html index.cgi index.pl index.php index.xhtml index.htm
+        #To this:
+        DirectoryIndex index.php index.html index.cgi index.pl index.xhtml index.htm
+  <IfModule>
+
+ 
+  
+After saving and closing the file, you will need to reload Apache so the changes take effect:
+
+`sudo systemctl reload apache2`
+  
+- let's create a php file to test
+- Create a new file named index.php inside your custom web root folder: `vim /var/www/projectlamp/index.php`
+   
+Remove the file as it contains some sensitive information
+    `sudo rm /var/www/projectlamp/index.php`
   
