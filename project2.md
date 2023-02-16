@@ -1,0 +1,8 @@
+- Create an ec2 instance on AWS
+- Run ```sudo apt update``` to update your packages
+- run ```sudo apt install nginx``` to install nginx
+- run ```sudo systemctl status nginx``` to confirm it's running as a service
+- enable port 80 on your instance security group to allow web connections from anywhere
+- test if the web server is running locally on your ubuntu seerver by typing ```curl http://localhost:80``` on your browser
+- test if it can receive requests from the internet. Get your public ip address by running the command, ```curl -s http://169.254.169.254/latest/meta-data/public-ipv4```
+- 
