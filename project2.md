@@ -14,5 +14,6 @@
 - ```exit``` mysql
 - run a security script that will remove insecure default settings ```sudo mysql_secure_installation```
 - Don't enable ```VALIDATE PASSWORD``` if you don't want to set a specified criteria for passwords to be accepted
-- 
+- type yes and press enter for all the other prompts
+- install PHP packages: ```sudo apt install php-fpm php-mysql```
 - 
