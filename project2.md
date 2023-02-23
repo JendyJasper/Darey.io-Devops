@@ -62,3 +62,13 @@ location ~ \.php$ — This location block handles the actual PHP processing by p
 location ~ /\.ht — The last location block deals with .htaccess files, which Nginx does not process. By adding the deny all directive, if any .htaccess files happen to find their way into the document root ,they will not be served to visitors.
 When you’re done editing, save and close the file. If you’re using nano, you can do so by typing CTRL+X and then y and ENTER to confirm.
 >
+
+- Activate your configuration by linking to the config file from Nginx’s sites-enabled directory: ```sudo ln -s /etc/nginx/sites-available/projectLEMP /etc/nginx/sites-enabled/```
+- This will tell Nginx to use the configuration next time it is reloaded. You can test your configuration for syntax errors by typing: ```sudo nginx -t```
+- We also need to disable default Nginx host that is currently configured to listen on port 80, for this run: ```sudo unlink /etc/nginx/sites-enabled/default```
+- Reload NGINX to apply changes: ```sudo systemctl reload nginx```
+- The new website at /var/www/projectLEMP  is active but still empty. Let's create an index file to make sure it's working as it should:
+```
+sudo echo 'Hello LEMP from hostname' $(curl -s http://169.254.169.254/latest/meta-data/public-hostname) 'with public IP' $(curl -s http://169.254.169.254/latest/meta-data/public-ipv4) > /var/www/projectLEMP/index.html
+```
+- Access your website using ```http://<Public-IP-Address>:80``` or ```http://<Public-DNS-Name>:80``` to make sure you are able to see the html file you added.
