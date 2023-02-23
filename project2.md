@@ -72,3 +72,8 @@ When you’re done editing, save and close the file. If you’re using nano, you
 sudo echo 'Hello LEMP from hostname' $(curl -s http://169.254.169.254/latest/meta-data/public-hostname) 'with public IP' $(curl -s http://169.254.169.254/latest/meta-data/public-ipv4) > /var/www/projectLEMP/index.html
 ```
 - Access your website using ```http://<Public-IP-Address>:80``` or ```http://<Public-DNS-Name>:80``` to make sure you are able to see the html file you added.
+- Open a new file called info.php within your document root in your text editor to test if your server is able to process php requests: ```sudo nano /var/www/projectLEMP/info.php```. Paste the code in the file: ```<?php
+phpinfo();```
+- You can now access this page in your web browser by visiting the domain name or public IP address you’ve set up in your Nginx configuration file, followed by /info.php: http://`server_domain_or_IP`/info.php
+
+> Always remember to delete the info.php file as it contains sensitive information about your server
