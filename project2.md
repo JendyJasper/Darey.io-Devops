@@ -77,3 +77,47 @@ phpinfo();```
 - You can now access this page in your web browser by visiting the domain name or public IP address you’ve set up in your Nginx configuration file, followed by /info.php: http://`server_domain_or_IP`/info.php
 
 > Always remember to delete the info.php file as it contains sensitive information about your server
+
+## Retrieving data from mysql database with php
+> We will create a database named example_database and a user named example_user.
+- First, connect to the MySQL console using the root account: ```sudo mysql```. if it fails to connect as you have set your password earlier, use ```sudo mysql -u root -p``` to connect and enter the root password already set earlier
+- Next, create a new database using the command: ```CREATE DATABASE `example_database`;```
+- create a new user and grant it full privileges: ```CREATE USER 'example_user'@'%' IDENTIFIED WITH mysql_native_password BY 'password';``` 
+- grant full privileges over the example_database: ```GRANT ALL ON example_database.* TO 'example_user'@'%';```
+> This will give the example_user user full privileges over the example_database database, while preventing this user from creating or modifying other databases on your server.
+- exit the database: ```exit```
+- You can test if the new user has the proper permissions by logging in to the MySQL console again, this time using the custom user credentials: ```mysql -u example_user -p```
+- when you login, check if you can access the database by running the command: ```SHOW DATABASES;```
+- Next, we’ll create a test table named todo_list. From the MySQL console, run the following statement: 
+```
+CREATE TABLE example_database.todo_list (
+mysql>     item_id INT AUTO_INCREMENT,
+mysql>     content VARCHAR(255),
+mysql>     PRIMARY KEY(item_id)
+mysql> );
+```
+- Insert a few rows of content in the test table: ```INSERT INTO example_database.todo_list (content) VALUES ("My first important item");```
+- To confirm that the data was successfully saved to your table, run:  ```SELECT * FROM example_database.todo_list;```
+- After confirming that you have valid data in your test table, you can exit the MySQL console: ```exit```
+- Now you can create a PHP script that will connect to MySQL and query for your content. Create a new PHP file in your custom web root directory using your preferred editor: ```nano /var/www/projectLEMP/todo_list.php```
+- The following PHP script connects to the MySQL database and queries for the content of the todo_list table, displays the results in a list. If there is a problem with the database connection, it will throw an exception. Copy this content into your todo_list.php script:
+```
+<?php
+$user = "example_user";
+$password = "password";
+$database = "example_database";
+$table = "todo_list";
+
+try {
+  $db = new PDO("mysql:host=localhost;dbname=$database", $user, $password);
+  echo "<h2>TODO</h2><ol>";
+  foreach($db->query("SELECT content FROM $table") as $row) {
+    echo "<li>" . $row['content'] . "</li>";
+  }
+  echo "</ol>";
+} catch (PDOException $e) {
+    print "Error!: " . $e->getMessage() . "<br/>";
+    die();
+}
+```
+- You can now access this page in your web browser by visiting the domain name or public IP address configured for your website, followed by /todo_list.php: http://<Public_domain_or_IP>/todo_list.php
