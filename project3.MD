@@ -128,3 +128,63 @@ Todo.findOneAndDelete({"_id": req.params.id})
 
 module.exports = router;
 ```
+
+## Set up MONGO DB
+- signup on https://www.mongodb.com/atlas-signup-from-mlab
+- Create a new cluster or project, create a user, create a database, create a collection, and connect to your mongodb database to get your login credentials
+> To kill a node js process from running in the background: ```sudo lsof -i :3000``` where 3000 is the port number. Get the process ID and run ```kill -9 <PID>```
+- You can set up specifici IP addresses to access your database or set it up to allow access from anywhere
+> In the index.js file, we specified process.env to access environment variables, but we have not yet created this file. So we need to do that now.
+- Create a file in your Todo directory and name it .env. ```touch .env```
+- Open the file ```nano .env```
+- Add the connection string to access the database in it, just as below: ```DB = 'mongodb+srv://<username>:<password>@<network-address>/<dbname>?retryWrites=true&w=majority'```. You can get this details by clicking the CONNECT button on the database page
+- Now we need to update the index.js to reflect the use of .env so that Node.js can connect to the database. Simply delete existing content in the file, and update it with the entire code below.
+> To do that using vim, follow below steps:
+- Open the file with ```vim index.js```
+- Press esc
+- Type :
+- Type %d
+- Hit ‘Enter’
+- The entire content will be deleted, then, Press i to enter the insert mode in vim
+> Now, paste the entire code below in the file:
+```
+const express = require('express');
+const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+const routes = require('./routes/api');
+const path = require('path');
+require('dotenv').config();
+
+const app = express();
+
+const port = process.env.PORT || 5000;
+
+//connect to the database
+mongoose.connect(process.env.DB, { useNewUrlParser: true, useUnifiedTopology: true })
+.then(() => console.log(`Database connected successfully`))
+.catch(err => console.log(err));
+
+//since mongoose promise is depreciated, we overide it with node's promise
+mongoose.Promise = global.Promise;
+
+app.use((req, res, next) => {
+res.header("Access-Control-Allow-Origin", "\*");
+res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+next();
+});
+
+app.use(bodyParser.json());
+
+app.use('/api', routes);
+
+app.use((err, req, res, next) => {
+console.log(err);
+next();
+});
+
+app.listen(port, () => {
+console.log(`Server running on port ${port}`)
+});
+```
+- Start your server using the command: ```node index.js```
+> You shall see a message ‘Database connected successfully’, if so – we have our backend configured. Now we are going to test it.
