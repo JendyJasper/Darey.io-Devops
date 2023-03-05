@@ -188,3 +188,5 @@ console.log(`Server running on port ${port}`)
 ```
 - Start your server using the command: ```node index.js```
 > You shall see a message ‘Database connected successfully’, if so – we have our backend configured. Now we are going to test it.
+  
+> Test using postman to send POST, GET and DELETE request. Use content-Type as application/json to send the post request. To use the DELETE request, pass in the ID of the item to the URI. link to use is http://35.171.193.174:5000/api/todos. You should be able to retriev and created todos and create new todos or even delete existing todos
