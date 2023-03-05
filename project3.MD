@@ -190,3 +190,92 @@ console.log(`Server running on port ${port}`)
 > You shall see a message ‘Database connected successfully’, if so – we have our backend configured. Now we are going to test it.
   
 > Test using postman to send POST, GET and DELETE request. Use content-Type as application/json to send the post request. To use the DELETE request, pass in the ID of the item to the URI. link to use is http://35.171.193.174:5000/api/todos. You should be able to retriev and created todos and create new todos or even delete existing todos
+  
+## Frontend creation
+  Let's create a user interface for our react app.
+
+- we will use the create-react-app command to scaffold our app. In the same root directory as your backend code, which is the Todo directory, run: "npx create-react-app client". This will create a new folder in your Todo directory called client, where you will add all the react code.
+- Before testing the react app, there are some dependencies that need to be installed.
+- Install concurrently. It is used to run more than one command simultaneously from the same terminal window. ```npm install concurrently --save-dev```
+- Install nodemon. It is used to run and monitor the server. If there is any change in the server code, nodemon will restart it automatically and load the new changes. ```npm install nodemon --save-dev```
+- In Todo folder open the package.json file. Change the highlighted part of the below screenshot and replace with the code below.
+ ```
+  "scripts": {
+"start": "node index.js",
+"start-watch": "nodemon index.js",
+"dev": "concurrently \"npm run start-watch\" \"cd client && npm start\""
+},
+```
+ ![image](https://user-images.githubusercontent.com/29708657/222961685-55352183-e710-42a5-8553-20647ebb1fab.png)
+
+### Configure Proxy in package.json
+- Change directory to ‘client’
+- cd client
+- Open the package.json file: ```vi package.json```
+- Add the key value pair in the package.json file ```"proxy": "http://localhost:5000"```
+> The whole purpose of adding the proxy configuration in number 3 above is to make it possible to access the application directly from the browser by simply calling the server url like http://localhost:5000 rather than always including the entire path like http://localhost:5000/api/todos
+  
+- Now, ensure you are inside the Todo directory, and simply do: ```npm run dev```
+
+> Your app should open and start running on localhost:3000. Important note: In order to be able to access the application from the Internet you have to open TCP port 3000 on EC2 by adding a new Security Group rule. 
+  
+### Creating your React Components
+- Move to client directory: ```cd client```
+- move to the src directory: ```cd src```
+- Inside your src folder create another folder called components: ```mkdir components```
+- Move into the components directory with: ```cd components```
+- Inside ‘components’ directory create three files Input.js, ListTodo.js and Todo.js.: ```touch Input.js ListTodo.js Todo.js```
+- Open Input.js file: ```vi Input.js```
+- copy and paste the following:
+```
+  import React, { Component } from 'react';
+import axios from 'axios';
+
+class Input extends Component {
+
+state = {
+action: ""
+}
+
+addTodo = () => {
+const task = {action: this.state.action}
+
+    if(task.action && task.action.length > 0){
+      axios.post('/api/todos', task)
+        .then(res => {
+          if(res.data){
+            this.props.getTodos();
+            this.setState({action: ""})
+          }
+        })
+        .catch(err => console.log(err))
+    }else {
+      console.log('input field required')
+    }
+
+}
+
+handleChange = (e) => {
+this.setState({
+action: e.target.value
+})
+}
+
+render() {
+let { action } = this.state;
+return (
+<div>
+<input type="text" onChange={this.handleChange} value={action} />
+<button onClick={this.addTodo}>add todo</button>
+</div>
+)
+}
+}
+
+export default Input
+```
+  after that, do the following to use axion
+- Move to the src folder ```cd ..```
+- Move to clients folder: ```cd ..```
+- Install Axios
+- npm install axios
