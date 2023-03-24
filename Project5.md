@@ -15,3 +15,6 @@
 - flush privileges: ```FLUSH PRIVILEGES;```
 - exit the mysql shell: ```exit```
 - <img width="1440" alt="image" src="https://user-images.githubusercontent.com/29708657/227430517-2b8e7db5-d5ed-482f-aef5-339942213260.png">
+- restart mysql: ```sudo systemctl restart mysql```
+- login to the mysql client ec2 instance and connect to the mysql server ec2 instance via mysql: ```sudo mysql -u jendy_jasper -h 172.31.51.248 -p``` and hit enter. a password prompt comes up. Enter the password and you should be connected as shown below:
+- <img width="1440" alt="image" src="https://user-images.githubusercontent.com/29708657/227431542-084cb9fe-1ed9-481b-b8b1-c185a1a0f294.png">
