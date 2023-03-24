@@ -24,3 +24,5 @@
 - run the command to create a table and specify the schema for the colunms: ```CREATE TABLE movies(title VARCHAR(50) NOT NULL,genre VARCHAR(30) NOT NULL,director VARCHAR(60) NOT NULL,release_year INT NOT NULL,PRIMARY KEY(title));```
 - run ```DESCRIBE movies``` to make sure the table was created
 - <img width="1440" alt="image" src="https://user-images.githubusercontent.com/29708657/227433921-ba833567-e3f9-4c21-90a1-f45c768d51e9.png">
+- further play around using INSERT , SELECT, WHERE to perform actions on the database
+- <img width="1440" alt="image" src="https://user-images.githubusercontent.com/29708657/227434976-4ab5ebf7-9fe0-44e3-a34f-4fd1cca54987.png">
