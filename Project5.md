@@ -5,3 +5,13 @@
 - on the mysql client ec2 instance, run ```sudo apt install mysql-client``` to install the mysql client software
 - go to your mysql server ec2 instance security group and edit the inbound rule to allow mysql connection from mysql client ec2 instance. Because they are both in the same local netowk, use the private address of the mysql client as the only allowed IP address to connect using mysql to the mysql server ec2 instance. Mysql uses port 3306
 - <img width="1419" alt="image" src="https://user-images.githubusercontent.com/29708657/227425832-3c06d17f-97f8-4108-9e4b-f542f8470193.png">
+- the mysql server is set up by default to accept mysql connections only from the local machine. You need to change this to enable it allow connections from remote hosts. run the command ```sudo vi /etc/mysql/mysql.conf.d/mysqld.cnf``` and replace the localhost address of 127.0.0.1 to 0.0.0.0 which means any address
+- <img width="1440" alt="image" src="https://user-images.githubusercontent.com/29708657/227426686-f77dc444-760e-4605-b9d8-459e51daaa7c.png">
+- on the mysql server, create mysql database, a user, password and some neccessary configurations before attempting to connect to it from the mysql client
+- login to the mysql software on the mysql server: ```sudo mysql```
+- run this command to create a user: ```mysql> CREATE USER 'jendy_jasper'@'%' IDENTIFIED WITH mysql_native_password BY 'password';```. The % symbol means any address can connect to it
+- Create database: ```CREATE DATABASE test_db;```
+- grant privileges: ```GRANT ALL ON test_db.* TO 'jendy_jasper'@'%' WITH GRANT OPTION;```
+- flush privileges: ```FLUSH PRIVILEGES;```
+- exit the mysql shell: ```exit```
+- <img width="1440" alt="image" src="https://user-images.githubusercontent.com/29708657/227430517-2b8e7db5-d5ed-482f-aef5-339942213260.png">
