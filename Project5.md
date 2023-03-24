@@ -18,3 +18,9 @@
 - restart mysql: ```sudo systemctl restart mysql```
 - login to the mysql client ec2 instance and connect to the mysql server ec2 instance via mysql: ```sudo mysql -u jendy_jasper -h 172.31.51.248 -p``` and hit enter. a password prompt comes up. Enter the password and you should be connected as shown below:
 - <img width="1440" alt="image" src="https://user-images.githubusercontent.com/29708657/227431542-084cb9fe-1ed9-481b-b8b1-c185a1a0f294.png">
+- run ```SHOW DATABASES```. If you can see the test_db database created earlier, it means you are successfully connected. Refer to the screenshot below:
+- <img width="1440" alt="image" src="https://user-images.githubusercontent.com/29708657/227432250-8f0701c7-b4a9-4b73-a107-9c9f922bd659.png">
+- create a table. Firs, select the database you want to use: ```USE test_db```
+- run the command to create a table and specify the schema for the colunms: ```CREATE TABLE movies(title VARCHAR(50) NOT NULL,genre VARCHAR(30) NOT NULL,director VARCHAR(60) NOT NULL,release_year INT NOT NULL,PRIMARY KEY(title));```
+- run ```DESCRIBE movies``` to make sure the table was created
+- <img width="1440" alt="image" src="https://user-images.githubusercontent.com/29708657/227433921-ba833567-e3f9-4c21-90a1-f45c768d51e9.png">
