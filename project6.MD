@@ -20,7 +20,7 @@ ________________________________________________________________________________
 - Create two ec2 instances, name the first one ```web server``` and the second one ```db server```
 - <img width="1410" alt="image" src="https://user-images.githubusercontent.com/29708657/228852470-2ead3de0-861a-4567-afb8-aa1f7aca7301.png">
 
-### Configure the web server ec2 instance
+## Configure the web server ec2 instance
 
 - Create 3 EBS volumes. Make sure the volumes are in the same availability zone as your ec2 instances
 - <img width="1435" alt="image" src="https://user-images.githubusercontent.com/29708657/228854394-302da274-d12b-4c67-a97d-e1ef89bf05b9.png">
@@ -70,13 +70,13 @@ and
 
 
 
-### Prepare the Database Server
+## Prepare the Database Server
 > Launch a second RedHat EC2 instance that will have a role – ‘DB Server’
 Repeat the same steps as for the Web Server, but instead of apps-lv create db-lv and mount it to /db directory instead of /var/www/html/.
 - <img width="1440" alt="image" src="https://user-images.githubusercontent.com/29708657/228937001-81b78f14-d8d0-45a1-b338-d2fb8a6731ce.png">
 
 
-### Install WordPress on your Web Server EC2
+## Install WordPress on your Web Server EC2
 
 - Update the repository: ```sudo yum -y update```
 - Install wget, Apache and it’s dependencies: ```sudo yum -y install wget httpd php php-mysqlnd php-fpm php-json```
@@ -110,6 +110,26 @@ sudo chown -R apache:apache /var/www/html/wordpress
 sudo chcon -t httpd_sys_rw_content_t /var/www/html/wordpress -R
 sudo setsebool -P httpd_can_network_connect=1
 ```
+> Test the website by visiting the public IP address
 ![image](https://user-images.githubusercontent.com/29708657/228943640-1d3528d3-0e4d-4a35-a54f-185609374b81.png)
 
-- <img width="1412" alt="image" src="https://user-images.githubusercontent.com/29708657/228924603-4fee0dd5-8979-4af8-b472-1605dc6bce2e.png">
+
+## Install MySQL on your DB Server EC2
+- update the server: ```sudo yum update```
+- Install mysql server: ```sudo yum install mysql-server```
+- Verify that the service is up and running by using ```sudo systemctl status mysqld```, if it is not running, restart the service and enable it so it will be running even after reboot: ```sudo systemctl restart mysqld``` and  ```sudo systemctl enable mysqld```
+
+
+
+## Configure DB to work with WordPress
+- Create a database, create a user, set password for the user and grant the user all privilleges on the database:
+```
+sudo mysql
+CREATE DATABASE wordpress;
+CREATE USER `myuser`@`<Web-Server-Private-IP-Address>` IDENTIFIED BY 'mypass';
+GRANT ALL ON wordpress.* TO 'myuser'@'<Web-Server-Private-IP-Address>';
+FLUSH PRIVILEGES;
+SHOW DATABASES;
+exit
+ ```
+ <img width="1023" alt="image" src="https://user-images.githubusercontent.com/29708657/228947822-3922538f-2627-49b9-b0f4-fa9b9905bbe9.png">
