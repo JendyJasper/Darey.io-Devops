@@ -102,12 +102,12 @@ mkdir wordpress
   sudo tar xzvf latest.tar.gz
   sudo rm -rf latest.tar.gz
   sudo cp wordpress/wp-config-sample.php wordpress/wp-config.php
-  sudo cp -R wordpress /var/www/html/
+  sudo cp -R wordpress/. /var/www/html/
   ```
 - Configure SELinux Policies;
 ```
-sudo chown -R apache:apache /var/www/html/wordpress
-sudo chcon -t httpd_sys_rw_content_t /var/www/html/wordpress -R
+sudo chown -R apache:apache /var/www/html/
+sudo chcon -t httpd_sys_rw_content_t /var/www/html/ -R
 sudo setsebool -P httpd_can_network_connect=1
 ```
 > Test the website by visiting the public IP address
@@ -133,3 +133,24 @@ SHOW DATABASES;
 exit
  ```
  <img width="1023" alt="image" src="https://user-images.githubusercontent.com/29708657/228947822-3922538f-2627-49b9-b0f4-fa9b9905bbe9.png">
+
+
+## Configure WordPress to connect to remote database.
+> Open MySQL port 3306 on DB Server EC2 security group inbound rule settings. For extra security, allow access to the DB server ONLY from the Web Server’s private IP address, so in the Inbound Rule configuration specify source as /32.
+
+- Install MySQL client and test that you can connect from your Web Server to your DB server by using ```mysql-client```: ```sudo yum install mysql``` and ```sudo mysql -u wordpress -p -h <DB-Server-Private-IP-address>``` and enter the configured password
+- On the database server, set the bind address: ```sudo vi /etc/my.cnf``` as shown in the image below and restart: ```
+- <img width="1055" alt="image" src="https://user-images.githubusercontent.com/29708657/228952107-6038a265-61f8-4bbf-84dd-22318791bfc0.png">
+- On the web server, edit the PHP configuration file: ```sudo vi wp-config.php``` to include the database credentials and host
+- <img width="1415" alt="image" src="https://user-images.githubusercontent.com/29708657/228953174-38f7b780-5154-4c3a-9804-0b9482930cfb.png">
+- Restart the service: ```sudo systemctl restart httpd```
+- Disable the apache default page. Edit the name instead of deleting it: ```sudo mv /etc/httpd/conf.d/welcome.conf /etc/httpd/conf.d/welcome.conf_backup```
+- Change permissions and configuration so Apache could use WordPress:
+- Enable TCP port 80 in Inbound Rules configuration for your Web Server EC2 (enable from everywhere 0.0.0.0/0 or from your workstation’s IP)
+- Try to access from your browser the link to your WordPress http://<Web-Server-Public-IP-Address>/
+
+![image](https://user-images.githubusercontent.com/29708657/228964986-485fc0e6-9ee7-4f63-897b-7174814f6b5c.png)
+ 
+You can publish a blog post and even add a comment
+![image](https://user-images.githubusercontent.com/29708657/228965573-2b42c2d0-6592-48c0-9619-f5f5cf88e7e4.png)
+
