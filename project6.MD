@@ -35,4 +35,22 @@ ________________________________________________________________________________
 - <img width="717" alt="image" src="https://user-images.githubusercontent.com/29708657/228868806-5d5ac521-2caa-429b-99ae-e02072cd94fc.png">
 - After creating the partitions, run the ```lsblk``` command again to verify the partitions creations.
 - <img width="698" alt="image" src="https://user-images.githubusercontent.com/29708657/228871063-9d45cf71-30fb-4b73-b0db-736b622e5f19.png">
-- 
+- Install lvm2 package using ```sudo yum install lvm2```. Run ```sudo lvmdiskscan``` command to check for available partitions.
+- <img width="511" alt="image" src="https://user-images.githubusercontent.com/29708657/228910736-20438b2a-4589-4a84-810f-d0ca078fca77.png">
+- Use ```pvcreate``` utility to mark each of 3 disks as physical volumes (PVs) to be used by LVM. You can create the one at a tine or all at once. See the picture below
+- <img width="782" alt="image" src="https://user-images.githubusercontent.com/29708657/228911529-d54c126a-64e9-4014-a8f3-f305c52c0a47.png">
+- Verify that your Physical volume has been created successfully by running ```sudo pvs```
+- <img width="512" alt="image" src="https://user-images.githubusercontent.com/29708657/228913177-82382dd9-c06d-4ce0-a79e-b8d464b59fd7.png">
+- Use vgcreate utility to add all 3 PVs to a volume group (VG). Name the VG webdata-vg: ```sudo vgcreate webdata-vg /dev/xvdh1 /dev/xvdg1 /dev/xvdf1```
+- Verify that your VG has been created successfully by running ```sudo vgs```
+- <img width="985" alt="image" src="https://user-images.githubusercontent.com/29708657/228913994-34830203-b88b-405d-bb55-1e0e2db82f55.png">
+- Use lvcreate utility to create 2 logical volumes. ```apps-lv``` (Use half of the PV size), and ```logs-lv``` Use the remaining space of the PV size. ```sudo lvcreate -n apps-lv -L 14G webdata-vg``` and ```sudo lvcreate -n logs-lv -L 14G webdata-vg``` NOTE: apps-lv will be used to store data for the Website while, logs-lv will be used to store data for logs.
+- Verify that your Logical Volume has been created successfully by running sudo lvs
+- <img width="1010" alt="image" src="https://user-images.githubusercontent.com/29708657/228915680-8c5ffe08-7876-4723-a02b-7fdecb593d85.png">
+- Verify the entire setup: ```sudo vgdisplay -v #view complete setup - VG, PV, and LV``` and ```sudo lsblk```
+- <img width="530" alt="image" src="https://user-images.githubusercontent.com/29708657/228916768-6d0ccdf5-9d17-4671-9aa1-eea89d3c3943.png">
+and
+- <img width="743" alt="image" src="https://user-images.githubusercontent.com/29708657/228916335-2dc431ed-71c7-4291-985f-a2e671eef237.png">
+- Use mkfs.ext4 to format the logical volumes with ext4 filesystem: ```sudo mkfs -t ext4 /dev/webdata-vg/apps-lv``` and ```sudo mkfs -t ext4 /dev/webdata-vg/logs-lv```
+- <img width="941" alt="image" src="https://user-images.githubusercontent.com/29708657/228917396-84d62a01-2d3a-4e06-bb34-9b73cc7208cb.png">
+
