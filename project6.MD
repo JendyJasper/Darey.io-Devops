@@ -10,3 +10,29 @@
 > ```db server``` using mysql instead of ssh. It means we will also set up a database name, create a user, create a password, grant privilleges to the created user, and pass the login credentials
 > to the ```web server``` ec2 instance so the web server can use it to communicate with the database server. We will also repeat the process of creating and attaching a volume as we did for the web server instance. The Only difference 
 > is that we will create only one logical volume, and mount it to ```/db``` for the ```db server```. 
+
+
+
+
+______________________________________________________________________________________
+
+
+- Create two ec2 instances, name the first one ```web server``` and the second one ```db server```
+- <img width="1410" alt="image" src="https://user-images.githubusercontent.com/29708657/228852470-2ead3de0-861a-4567-afb8-aa1f7aca7301.png">
+
+### Configure the web server ec2 instance
+
+- Create 3 EBS volumes. Make sure the volumes are in the same availability zone as your ec2 instances
+- <img width="1435" alt="image" src="https://user-images.githubusercontent.com/29708657/228854394-302da274-d12b-4c67-a97d-e1ef89bf05b9.png">
+- Attach all the three volumes to the ```web server``` ec2 instance
+- <img width="1440" alt="image" src="https://user-images.githubusercontent.com/29708657/228855681-bb8646d8-0740-4f90-afb1-46ff0613cf89.png">
+- Login to the web server ec2 instance to begin configurations
+- Use ```lsblk``` command to inspect what block devices are attached to the server. Notice names of your newly created devices as shown in the screenshot above. All devices in Linux reside in /dev/ directory. Inspect it with ls /dev/ and make sure you see all 3 newly created block devices there – their names will likely be xvdf, xvdh, xvdg.
+- <img width="714" alt="image" src="https://user-images.githubusercontent.com/29708657/228861352-b6e0bb59-0aa7-41fd-b572-6d18c16f7d40.png">- 
+- In the above picture, you will see three disks namely xvdf, xvdg, and xvdh. These are the 3 volumes we attached to this server. Each of them has 10GB of storage capacity.
+- Use ```df -h``` command to see all mounts and free space on your server. We can't see anything for the new disks yet because we haven't partiotioned and mounted them yet.
+- Use gdisk utility to create a single partition on each of the 3 disks: ```sudo gdisk /dev/xvdf```. Repeat the process for the other two attached volumes. Make sure you select the Linux LVM type which has a hex code of 8e00. THis is neccessary as we will create logical volumes with these partitions
+- <img width="717" alt="image" src="https://user-images.githubusercontent.com/29708657/228868806-5d5ac521-2caa-429b-99ae-e02072cd94fc.png">
+- After creating the partitions, run the ```lsblk``` command again to verify the partitions creations.
+- <img width="698" alt="image" src="https://user-images.githubusercontent.com/29708657/228871063-9d45cf71-30fb-4b73-b0db-736b622e5f19.png">
+- 
