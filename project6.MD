@@ -75,3 +75,41 @@ and
 Repeat the same steps as for the Web Server, but instead of apps-lv create db-lv and mount it to /db directory instead of /var/www/html/.
 - <img width="1440" alt="image" src="https://user-images.githubusercontent.com/29708657/228937001-81b78f14-d8d0-45a1-b338-d2fb8a6731ce.png">
 
+
+### Install WordPress on your Web Server EC2
+
+- Update the repository: ```sudo yum -y update```
+- Install wget, Apache and it’s dependencies: ```sudo yum -y install wget httpd php php-mysqlnd php-fpm php-json```
+- Start Apache ```sudo systemctl enable httpd``` and  ```sudo systemctl start httpd```
+- To install PHP and its depemdencies:
+```
+sudo yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
+sudo yum install yum-utils http://rpms.remirepo.net/enterprise/remi-release-8.rpm
+sudo yum module list php
+sudo yum module reset php
+sudo yum module enable php:remi-7.4
+sudo yum install php php-opcache php-gd php-curl php-mysqlnd
+sudo systemctl start php-fpm
+sudo systemctl enable php-fpm
+sudo setsebool -P httpd_execmem 1
+```
+- Restart Apache: ```sudo systemctl restart httpd```
+- Download wordpress and copy wordpress to var/www/html: 
+```
+mkdir wordpress
+  cd   wordpress
+  sudo wget http://wordpress.org/latest.tar.gz
+  sudo tar xzvf latest.tar.gz
+  sudo rm -rf latest.tar.gz
+  sudo cp wordpress/wp-config-sample.php wordpress/wp-config.php
+  sudo cp -R wordpress /var/www/html/
+  ```
+- Configure SELinux Policies;
+```
+sudo chown -R apache:apache /var/www/html/wordpress
+sudo chcon -t httpd_sys_rw_content_t /var/www/html/wordpress -R
+sudo setsebool -P httpd_can_network_connect=1
+```
+![image](https://user-images.githubusercontent.com/29708657/228943640-1d3528d3-0e4d-4a35-a54f-185609374b81.png)
+
+- <img width="1412" alt="image" src="https://user-images.githubusercontent.com/29708657/228924603-4fee0dd5-8979-4af8-b472-1605dc6bce2e.png">
