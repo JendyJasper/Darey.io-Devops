@@ -60,4 +60,11 @@ and
 - Use rsync utility to backup all the files in the log directory ```/var/log``` into ```/home/recovery/logs``` (This is required before mounting the file system as the file system needs to be mounted in a directory with zero files or directories): ```sudo rsync -av /var/log/. /home/recovery/logs/```. The period(.) after /log means everything inside log
 - Mount /var/log on logs-lv logical volume. (Note that all the existing data on /var/log will be deleted. That is why the back up above was done first): ```sudo mount /dev/webdata-vg/logs-lv /var/log```
 - Restore log files back into /var/log directory: ```sudo rsync -av /home/recovery/logs/. /var/log```
-- 
+- Update /etc/fstab file so that the mount configuration will persist after restart of the server. The UUID of the device will be used to update the /etc/fstab file: ```sudo blkid```
+- <img width="1440" alt="image" src="https://user-images.githubusercontent.com/29708657/228923351-b276f9c1-156a-4fca-b526-8c48a5dbc551.png">
+- Open the fstab file to edit and add the UUID: ```sudo vi /etc/fstab```
+- <img width="1412" alt="image" src="https://user-images.githubusercontent.com/29708657/228924603-4fee0dd5-8979-4af8-b472-1605dc6bce2e.png">
+- Test the configuration and reload the daemon: ```sudo mount -a``` and ```sudo systemctl daemon-reload```
+- Verify your setup by running ```df -h```, output must look like this:
+- <img width="1419" alt="image" src="https://user-images.githubusercontent.com/29708657/228925261-36d00251-f018-410b-8b56-73488aa06acb.png">
+
