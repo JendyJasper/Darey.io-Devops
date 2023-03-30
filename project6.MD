@@ -68,3 +68,10 @@ and
 - Verify your setup by running ```df -h```, output must look like this:
 - <img width="1419" alt="image" src="https://user-images.githubusercontent.com/29708657/228925261-36d00251-f018-410b-8b56-73488aa06acb.png">
 
+
+
+### Prepare the Database Server
+> Launch a second RedHat EC2 instance that will have a role – ‘DB Server’
+Repeat the same steps as for the Web Server, but instead of apps-lv create db-lv and mount it to /db directory instead of /var/www/html/.
+- <img width="1440" alt="image" src="https://user-images.githubusercontent.com/29708657/228937001-81b78f14-d8d0-45a1-b338-d2fb8a6731ce.png">
+
