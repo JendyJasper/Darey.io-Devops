@@ -53,4 +53,11 @@ and
 - <img width="743" alt="image" src="https://user-images.githubusercontent.com/29708657/228916335-2dc431ed-71c7-4291-985f-a2e671eef237.png">
 - Use mkfs.ext4 to format the logical volumes with ext4 filesystem: ```sudo mkfs -t ext4 /dev/webdata-vg/apps-lv``` and ```sudo mkfs -t ext4 /dev/webdata-vg/logs-lv```
 - <img width="941" alt="image" src="https://user-images.githubusercontent.com/29708657/228917396-84d62a01-2d3a-4e06-bb34-9b73cc7208cb.png">
-
+- Create /var/www/html directory to store website files: ```sudo mkdir -p /var/www/html```
+- Create /home/recovery/logs to store backup of log data: ```sudo mkdir -p /home/recovery/logs```
+> NOTE: Use the ```-p``` flg on mkdir to enable it create the parent directory first
+- Mount /var/www/html on apps-lv logical volume: ```sudo mount /dev/webdata-vg/apps-lv /var/www/html/```
+- Use rsync utility to backup all the files in the log directory ```/var/log``` into ```/home/recovery/logs``` (This is required before mounting the file system as the file system needs to be mounted in a directory with zero files or directories): ```sudo rsync -av /var/log/. /home/recovery/logs/```. The period(.) after /log means everything inside log
+- Mount /var/log on logs-lv logical volume. (Note that all the existing data on /var/log will be deleted. That is why the back up above was done first): ```sudo mount /dev/webdata-vg/logs-lv /var/log```
+- Restore log files back into /var/log directory: ```sudo rsync -av /home/recovery/logs/. /var/log```
+- 
