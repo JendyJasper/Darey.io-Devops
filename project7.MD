@@ -23,3 +23,6 @@
   - Mount lv-apps on /mnt/apps – To be used by webservers
   - Mount lv-logs on /mnt/logs – To be used by webserver logs
   - Mount lv-opt on /mnt/opt – To be used by Jenkins server in Project 8
+
+- Create 3 EBS volumes. Make sure the volumes are in the same availability zone as your ec2 instances
+<img width="1440" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/68d78f4b-0e62-42f4-b518-88d550359d23">
