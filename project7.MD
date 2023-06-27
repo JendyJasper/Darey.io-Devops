@@ -13,3 +13,13 @@
 
 #### Create 3 Webservers and 1 storage server. Use RHEL-8.6.0_HVM-20220503-x86_64-2-Hourly2-GP2 AMI for RHEL 8.
 <img width="1437" alt="Screenshot 2023-06-27 at 4 28 36 PM" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/7e73ba5a-d05f-4d36-812e-99c9f28be1a7">
+
+## Prepare NFS Server
+
+- Configure LVM on the Server.
+- Format them as xfs
+- Ensure there are 3 Logical Volumes. lv-opt lv-apps, and lv-logs
+- Create mount points on /mnt directory for the logical volumes as follow:
+  - Mount lv-apps on /mnt/apps – To be used by webservers
+  - Mount lv-logs on /mnt/logs – To be used by webserver logs
+  - Mount lv-opt on /mnt/opt – To be used by Jenkins server in Project 8
