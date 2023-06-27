@@ -10,3 +10,5 @@
 - Grafana – a multi-platform open source analytics and interactive visualization web application.
 - Prometheus – An open-source monitoring system with a dimensional data model, flexible query language, efficient time series database and modern alerting approach.
 - Kibana – Kibana is a free and open user interface that lets you visualize your Elasticsearch data and navigate the Elastic Stack.
+
+## Create 3 Webservers and one storage server. Use RHEL-8.6.0_HVM-20220503-x86_64-2-Hourly2-GP2 AMI for RHEL 8.
