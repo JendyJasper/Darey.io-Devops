@@ -24,5 +24,12 @@
   - Mount lv-logs on /mnt/logs – To be used by webserver logs
   - Mount lv-opt on /mnt/opt – To be used by Jenkins server in Project 8
 
-- Create 3 EBS volumes. Make sure the volumes are in the same availability zone as your ec2 instances
+- Create 3 EBS volumes. Make sure the volumes are in the same availability zone as your ec2 instances. Attach the 3 EBS volumes to the NFS server
 <img width="1440" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/68d78f4b-0e62-42f4-b518-88d550359d23">
+- Login to the web server ec2 instance to begin configurations
+- Use lsblk command to inspect what block devices are attached to the server. Notice names of your newly created devices as shown in the screenshot above. All devices in Linux reside in /dev/ directory. Inspect it with ls /dev/ and make sure you see all 3 newly created block devices there – their names will likely be xvdf, xvdh, xvdg.
+<img width="607" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/fa3ea19b-f3a5-45d9-8b78-d6d3fdb112f0">
+- You could see the 3 volumes attached to this instance.
+- Use gdisk utility to create a single partition on each of the 3 disks: `sudo gdisk /dev/xvdf` . Repeat the process for the other two attached volumes. Make sure you select the Linux file system type which has a hex code of 8300.
+<img width="607" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/ec3bb0d1-2722-4ed4-be11-941c23fa732e">
+- You can see that the 3 partitions are all created.
