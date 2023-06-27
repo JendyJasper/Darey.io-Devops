@@ -36,5 +36,16 @@
 
 - You can see that the 3 partitions are all created.
 - Install lvm2 package using `sudo yum install lvm2` . Run `sudo lvmdiskscan` command to check for available partitions.
-- Use pvcreate utility to mark each of 3 disks as physical volumes (PVs) to be used by LVM. You can create the one at a time or all at once. See the picture below
+- Use pvcreate utility to mark each of 3 disks as physical volumes (PVs) to be used by LVM. You can create the one at a time or all at once. See the picture below. Run `sudo pvs` to make sure the physical volumes are created.
 <img width="1036" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/8eb4c9b1-ac3f-4b35-9096-2721011be6fd">
+
+- Use vgcreate utility to add all 3 PVs to a volume group (VG). Name the VG nfsStorage-vg: `sudo vgcreate nfsStorage-vg /dev/xvdh1 /dev/xvdg1 /dev/xvdf1`
+- Verify that your VG has been created successfully by running `sudo vgs`
+<img width="1204" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/2d65fc31-c9ef-4a5f-977b-4541d8535520">
+
+- Use lvcreate utility to create 3 logical volumes: `lv-opt lv-apps, and lv-logs`: `sudo lvcreate -n lv-opt -L 9G nfsStorage-vg`, `sudo lvcreate -n lv-apps -L 9G nfsStorage-vg`, and `sudo lvcreate -n lv-logs -L 9G nfsStorage-vg`
+- Verify that your Logical Volume has been created successfully by running sudo lvs
+<img width="1408" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/078df0ae-bd37-4417-b9a9-51fd6412e34f">
+
+
+
