@@ -54,3 +54,19 @@
 
 <img width="1440" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/f94df682-e950-48be-a01b-5a3c6d519c05">
 
+- Create 3 directories which will be used as the mount points: `sudo mkdir /mnt/apps`, `sudo mkdir /mnt/logs` and `sudo mkdir /mnt/opt`
+- Create mount points on /mnt directory for the logical volumes as follow:
+  - Mount lv-apps on /mnt/apps – To be used by webservers
+  - Mount lv-logs on /mnt/logs – To be used by webserver logs
+  - Mount lv-opt on /mnt/opt – To be used by Jenkins server in Project 8
+- Mount /mnt/apps on lv-apps logical volume: `sudo mount /dev/nfsStorage-vg/lv-apps /mnt/apps`
+- Mount /mnt/logs on lv-logs logical volume: `sudo mount /dev/nfsStorage-vg/lv-logs /mnt/logs`
+- Mount /mnt/opt on lv-opt logical volume: `sudo mount /dev/nfsStorage-vg/lv-opt /mnt/opt`
+
+#### Install NFS server, configure it to start on reboot and make sure it is u and running
+- `sudo yum -y update`
+- `sudo yum install nfs-utils -y`
+- `sudo systemctl start nfs-server.service`
+- `sudo systemctl enable nfs-server.service`
+- `sudo systemctl status nfs-server.service`
+
