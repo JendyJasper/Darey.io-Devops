@@ -11,4 +11,5 @@
 - Prometheus – An open-source monitoring system with a dimensional data model, flexible query language, efficient time series database and modern alerting approach.
 - Kibana – Kibana is a free and open user interface that lets you visualize your Elasticsearch data and navigate the Elastic Stack.
 
-## Create 3 Webservers and one storage server. Use RHEL-8.6.0_HVM-20220503-x86_64-2-Hourly2-GP2 AMI for RHEL 8.
+#### Create 3 Webservers and 1 storage server. Use RHEL-8.6.0_HVM-20220503-x86_64-2-Hourly2-GP2 AMI for RHEL 8.
+<img width="1437" alt="Screenshot 2023-06-27 at 4 28 36 PM" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/7e73ba5a-d05f-4d36-812e-99c9f28be1a7">
