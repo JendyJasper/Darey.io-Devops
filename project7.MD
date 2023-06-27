@@ -47,5 +47,10 @@
 - Verify that your Logical Volume has been created successfully by running sudo lvs
 <img width="1408" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/078df0ae-bd37-4417-b9a9-51fd6412e34f">
 
+- Verify all are setup: `sudo lsblk`
+<img width="1008" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/5ad91a44-3cff-42f4-91b6-1576703d2f23">
 
+- Use mkfs.xfs to format the logical volumes with xfs filesystem: `sudo mkfs -t xfs /dev/nfsStorage-vg/lv-apps` and `sudo mkfs -t xfs /dev/nfsStorage-vg/lv-logs`, and `sudo mkfs -t xfs /dev/nfsStorage-vg/lv-opt`
+
+<img width="1440" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/f94df682-e950-48be-a01b-5a3c6d519c05">
 
