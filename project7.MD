@@ -29,7 +29,12 @@
 - Login to the web server ec2 instance to begin configurations
 - Use lsblk command to inspect what block devices are attached to the server. Notice names of your newly created devices as shown in the screenshot above. All devices in Linux reside in /dev/ directory. Inspect it with ls /dev/ and make sure you see all 3 newly created block devices there – their names will likely be xvdf, xvdh, xvdg.
 <img width="607" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/fa3ea19b-f3a5-45d9-8b78-d6d3fdb112f0">
+
 - You could see the 3 volumes attached to this instance.
 - Use gdisk utility to create a single partition on each of the 3 disks: `sudo gdisk /dev/xvdf` . Repeat the process for the other two attached volumes. Make sure you select the Linux file system type which has a hex code of 8300.
 <img width="607" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/ec3bb0d1-2722-4ed4-be11-941c23fa732e">
+
 - You can see that the 3 partitions are all created.
+- Install lvm2 package using `sudo yum install lvm2` . Run `sudo lvmdiskscan` command to check for available partitions.
+- Use pvcreate utility to mark each of 3 disks as physical volumes (PVs) to be used by LVM. You can create the one at a time or all at once. See the picture below
+<img width="1036" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/8eb4c9b1-ac3f-4b35-9096-2721011be6fd">
