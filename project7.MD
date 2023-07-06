@@ -97,3 +97,12 @@ sudo exportfs -arv
 ```
 <img width="851" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/7b490b09-d2d2-4b4e-8826-176503516936">
 
+#### Check which port is used by NFS and open it using Security Groups (add new Inbound Rule)
+`rpcinfo -p | grep nfs`
+
+<img width="851" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/dd823812-e1c4-4bb9-b365-ff3ec1a0acc6">
+> Important note: In order for NFS server to be accessible from your client, you must also open following ports: TCP 111, UDP 111, UDP 2049
+<img width="1040" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/51a624f6-7781-4cb9-af62-bc6bb895eb19">
+
+
+## PREPARE DATABASE SERVER
