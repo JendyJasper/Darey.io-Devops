@@ -70,3 +70,30 @@
 - `sudo systemctl enable nfs-server.service`
 - `sudo systemctl status nfs-server.service`
 
+#### Export the mounts for webservers’ subnet cidr to connect as clients. To check your subnet cidr – open your EC2 details in AWS web console and locate ‘Networking’ tab and open a Subnet link:
+#### set up permission that will allow our Web servers to read, write and execute files on NFS:
+- `sudo chown -R nobody: /mnt/apps`
+- `sudo chown -R nobody: /mnt/logs`
+- `sudo chown -R nobody: /mnt/opt`
+
+- `sudo chmod -R 777 /mnt/apps`
+- `sudo chmod -R 777 /mnt/logs`
+- `sudo chmod -R 777 /mnt/opt`
+
+- `sudo systemctl restart nfs-server.service`
+<img width="1205" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/44c633ce-9c64-42f2-85b2-f851fe097ebb">
+
+#### Configure access to NFS for clients within the same subnet (example of Subnet CIDR – 172.31.32.0/20 ):
+```
+sudo vi /etc/exports
+
+/mnt/apps <Subnet-CIDR>(rw,sync,no_all_squash,no_root_squash)
+/mnt/logs <Subnet-CIDR>(rw,sync,no_all_squash,no_root_squash)
+/mnt/opt <Subnet-CIDR>(rw,sync,no_all_squash,no_root_squash)
+
+Esc + :wq!
+
+sudo exportfs -arv
+```
+<img width="851" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/7b490b09-d2d2-4b4e-8826-176503516936">
+
