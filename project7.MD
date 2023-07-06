@@ -144,3 +144,24 @@ sudo mount -t nfs -o rw,nosuid <NFS-Server-Private-IP-Address>:/mnt/apps /var/ww
 ```
 
 <img width="1040" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/217a8f6b-7d82-47cb-9af5-636a27759f5b">
+
+- Install Remi’s repository, Apache and PHP:
+```
+sudo yum install httpd -y
+
+sudo dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
+
+sudo dnf install dnf-utils http://rpms.remirepo.net/enterprise/remi-release-8.rpm
+
+sudo dnf module reset php
+
+sudo dnf module enable php:remi-7.4
+
+sudo dnf install php php-opcache php-gd php-curl php-mysqlnd
+
+sudo systemctl start php-fpm
+
+sudo systemctl enable php-fpm
+
+setsebool -P httpd_execmem 1
+```
