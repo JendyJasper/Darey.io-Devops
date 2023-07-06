@@ -108,3 +108,10 @@ sudo exportfs -arv
 
 
 ## PREPARE DATABASE SERVER
+- `sudo apt update`
+- Install mysql server: `sudo apt install mysql-server`
+- Verify that the service is up and running by using `sudo systemctl status mysql`, if it is not running, restart the service and enable it so it will be running even after reboot: `sudo systemctl restart mysql` and `sudo systemctl enable mysql`
+- Create a database and name it tooling: `create database tooling`
+- Create a database user and name it webaccess: `CREATE USER `webaccess`@`<Web-Server-Private-IP-Address>` IDENTIFIED BY 'password';`
+- Grant permission to webaccess user on tooling database to do anything only from the webservers subnet cidr: `GRANT ALL ON tooling.* TO 'webaccess'@'<Web-Server-Private-IP-Address>';`
+- `flush privileges`
