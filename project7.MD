@@ -165,3 +165,19 @@ sudo systemctl enable php-fpm
 
 setsebool -P httpd_execmem 1
 ```
+
+### Repeat same for 2 other web servers
+
+- Locate the log folder for Apache on the Web Server and mount it to NFS server’s export for logs. make sure the mount point will persist after reboot.: `sudo mount -t nfs -o rw,nosuid 172.31.84.168:/mnt/logs /var/log/httpd/` where the IP address is the NFS storage private IP
+- fork and clone this repo: https://github.com/darey-io/tooling
+- Deploy the tooling website’s code to the Webserver. Ensure that the html folder from the repository is deployed to /var/www/html - :`sudo cp -R tooling/html/. /var/www/html`
+
+
+> Note 1: Do not forget to open TCP port 80 on the Web Server.
+
+> Note 2: If you encounter 403 Error – check permissions to your /var/www/html folder and also disable SELinux `sudo setenforce 0`
+To make this change permanent – open following config file sudo vi /etc/sysconfig/selinux and set SELINUX=disabled then restart httpd.
+
+<img width="1440" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/6ede6cea-fa76-49a2-96f9-ffb5bc20732b">
+
+- Update the website’s configuration to connect to the database (in /var/www/html/functions.php file). Apply tooling-db.sql script to your database using this command `mysql -h <databse-private-ip> -u <db-username> -p <db-pasword> < tooling-db.sql`
