@@ -180,4 +180,18 @@ To make this change permanent – open following config file sudo vi /etc/syscon
 
 <img width="1440" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/6ede6cea-fa76-49a2-96f9-ffb5bc20732b">
 
-- Update the website’s configuration to connect to the database (in /var/www/html/functions.php file). Apply tooling-db.sql script to your database using this command `mysql -h <databse-private-ip> -u <db-username> -p <db-pasword> < tooling-db.sql`
+- Update the website’s configuration to connect to the database (in /var/www/html/functions.php file). Apply tooling-db.sql script to your database using this command `mysql <database_name> -h <databse-private-ip> -u <db-username> -p <db-pasword> < tooling-db.sql`
+> Should you encounter an error like: `ERROR 2003 (HY000): Can't connect to MySQL server on '172.31.87.182:3306' (111)`, change the localhost IP address of your database server config file to a bind address of 0.0.0.0.
+
+```
+INSERT INTO ‘users’ (‘id’, ‘username’, ‘password’, ’email’, ‘user_type’, ‘status’) VALUES (1, ‘myuser’, ‘5f4dcc3b5aa765d61d8327deb882cf99’, ‘user@mail.com’, ‘admin’, ‘1’);
+```
+
+> Open the website in your browser http://<Web-Server-Public-IP-Address-or-Public-DNS-Name>/index.php and make sure you can login into the website with myuser user.
+
+<img width="1440" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/c384d2d4-ac97-4241-856f-3825d1d07408">
+
+<img width="1440" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/b4349558-dd0b-4b1f-a664-8035927d91ad">
+
+
+
