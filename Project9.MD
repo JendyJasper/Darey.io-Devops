@@ -86,3 +86,5 @@ Finished: SUCCESS
 ```
 - To make sure that the files in /mnt/apps have been updated – connect via SSH/Putty to your NFS server and check README.MD file: `cat /mnt/apps/README.md`
 ### If you see the changes you had previously made in your GitHub – the job works as expected.
+
+<img width="1440" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/10f07e96-3bf8-4c7b-a0f5-50ab0be9e826">
