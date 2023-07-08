@@ -54,3 +54,35 @@ Click “Build Now” button, if you have configured everything correctly, the b
 <img width="1440" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/0e17c7d2-c23e-4971-8204-30b966101881">
 
 - By default, the artifacts are stored on Jenkins server locally: `ls /var/lib/jenkins/jobs/tooling_github/builds/<build_number>/archive/`
+
+
+### CONFIGURE JENKINS TO COPY FILES TO NFS SERVER VIA SSH
+- Now we have our artifacts saved locally on Jenkins server, the next step is to copy them to our NFS server to /mnt/apps directory.
+- We will need a plugin that is called “Publish Over SSH”. Install it.
+
+- Configure the job/project to copy artifacts over to NFS server.
+- On main dashboard select “Manage Jenkins” and choose “Configure System” menu item.
+- Scroll down to Publish over SSH plugin configuration section and configure it to be able to connect to your NFS server:
+  - Provide a private key (content of .pem file that you use to connect to NFS server via SSH/Putty)
+  - Arbitrary name
+  - Hostname – can be private IP address of your NFS server
+  - Username – ec2-user (since NFS server is based on EC2 with RHEL 8)
+  - Remote directory – /mnt/apps since our Web Servers use it as a mounting point to retrieve files from the NFS server
+
+Test the configuration and make sure the connection returns Success. Remember, that TCP port 22 on NFS server must be open to receive SSH connections.
+
+<img width="1440" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/2c3aae82-5c01-42c3-b622-2d9d6634683c">
+
+- Save the configuration, open your Jenkins job/project configuration page and add another one “Post-build Action”
+- Configure it to send all files produced by the build into our previously defined remote directory. In our case we want to copy all files and directories – so we use **.
+
+<img width="1440" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/9db91df4-b92d-4e95-a67d-bdae1959c005">
+
+- Save this configuration and go ahead, change something in README.MD file in your GitHub Tooling repository.
+- Webhook will trigger a new job and in the “Console Output” of the job you will find something like this:
+```
+SSH: Transferred 25 file(s)
+Finished: SUCCESS
+```
+- To make sure that the files in /mnt/apps have been updated – connect via SSH/Putty to your NFS server and check README.MD file: `cat /mnt/apps/README.md`
+### If you see the changes you had previously made in your GitHub – the job works as expected.
