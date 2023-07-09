@@ -78,3 +78,5 @@ Add following line: `* */12 * * *   root /usr/bin/certbot renew > /dev/null 2>&1
 ## we just implemented an Nginx Load Balancing Web Solution with secured HTTPS connection with periodically updated SSL/TLS certificates.
 
 <img width="561" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/8ff061f0-88d7-40b7-a7ed-e76874c4b22f">
+
+<img width="1440" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/e119f2b0-dbc0-47b7-9db8-5069dae9cda3">
