@@ -46,4 +46,33 @@ sudo systemctl config nginx
 
 - Update A record in your registrar to point to Nginx LB using Elastic IP address
 - Check that your Web Servers can be reached from your browser using new domain name using HTTP protocol – http://<your-domain-name.com>
-- 
+- Configure Nginx to recognize your new domain name
+- Update your nginx.conf with server_name www.<your-domain-name.com> instead of server_name www.domain.com
+- remove nginx default welcome page and reload the nginx server:
+```
+sudo rm /etc/nginx/sites-enabled/default
+sudo service nginx reload
+```
+
+- Install certbot and request for an SSL/TLS certificate. Make sure snapd service is active and running.: `sudo systemctl status snapd`
+and `sudo snap install --classic certbot`
+- Request your certificate (just follow the certbot instructions – you will need to choose which domain you want your certificate to be issued for, domain name will be looked up from nginx.conf file so make sure you have updated it )
+```
+sudo ln -s /snap/bin/certbot /usr/bin/certbot
+sudo certbot --nginx
+```
+
+- Test secured access to your Web Solution by trying to reach https://<your-domain-name.com>
+- You shall be able to access your website by using HTTPS protocol (that uses TCP port 443) and see a padlock pictogram in your browser’s search string.
+- Click on the padlock icon and you can see the details of the certificate issued for your website.   
+
+
+- Set up periodical renewal of your SSL/TLS certificate
+- By default, LetsEncrypt certificate is valid for 90 days, so it is recommended to renew it at least every 60 days or more frequently.
+- You can test renewal command in dry-run mode: `sudo certbot renew --dry-run`
+- Best practice is to have a scheduled job that to run renew command periodically. Let us configure a cronjob to run the command twice a day. To do so, lets edit the crontab file with the following command:
+
+`crontab -e`
+Add following line: `* */12 * * *   root /usr/bin/certbot renew > /dev/null 2>&1`
+
+## we just implemented an Nginx Load Balancing Web Solution with secured HTTPS connection with periodically updated SSL/TLS certificates.
