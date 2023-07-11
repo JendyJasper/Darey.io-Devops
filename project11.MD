@@ -119,5 +119,15 @@ git commit -m "commit message"
 <img width="1440" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/2790aaa7-1417-4004-85ea-83a97f3833f5">
 
 
+###Run first Ansible Test
 
+- Login to the Jenkins-Ansible server
+- change directory to the folder that holds that artifacts that are been sent from github webhook: `cd /var/lib/jenkins/jobs/ansible/builds/<build_number>/archive/`
+- ansible-playbook -i inventory/dev.yml playbooks/common.yml
+
+<img width="895" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/cd48cbee-6e7a-4087-b1fe-bba6beabf7fc">
+
+- login to few of the servers to confirm wireshark was installed, time zone shows WAT, the directory and file were created
+
+<img width="1159" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/eff27836-a4bd-4730-8510-b8a933350871">
 
