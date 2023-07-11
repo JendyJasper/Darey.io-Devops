@@ -131,3 +131,7 @@ git commit -m "commit message"
 
 <img width="1159" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/eff27836-a4bd-4730-8510-b8a933350871">
 
+- Check Wireshark version on one of the servers
+
+<img width="1160" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/881785ef-578c-4689-914c-81ec1f8c14a2">
+
