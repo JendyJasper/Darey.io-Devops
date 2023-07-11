@@ -62,3 +62,56 @@ ml`
 [lb]
 <Load-Balancer-Private-IP-Address> ansible_ssh_user='ubuntu'
 ```
+
+### CREATE A COMMON PLAYBOOK
+- Let's give Ansible the instructions on what needs to be done on all the attached servers listed in inventory/dev
+- In common.yml playbook, write configuration for repeatable, re-usable, and multi-machine tasks that is common to systems within the infrastructure. Update playbooks/common.yml file with following code:
+
+```
+---
+- name: update web, nfs and db servers
+  hosts: webservers, nfs, db
+  remote_user: ec2-user
+  become: yes
+  become_user: root
+  tasks:
+    - name: ensure wireshark is at the latest version
+      yum:
+        name: wireshark
+        state: latest
+
+- name: update LB server
+  hosts: lb
+  remote_user: ubuntu
+  become: yes
+  become_user: root
+  tasks:
+    - name: Update apt repo
+      apt: 
+        update_cache: yes
+
+    - name: ensure wireshark is at the latest version
+      apt:
+        name: wireshark
+        state: latest
+```
+
+#### Update GIT with the latest code
+
+- use git commands to add, commit and push your branch to GitHub.
+```
+git status
+
+git add <selected files>
+
+git commit -m "commit message"
+```
+
+- Push the changes to the prj11 branch
+- Create a pull request
+- Review and merge
+- Head back to your terminal, checkout from the feature branch into the master, and pull down the latest changes
+
+> Once your code changes appear in master branch – Jenkins will do its job and save all the files (build artifacts) to `/var/lib/jenkins/jobs/ansible/builds/<build_number>/archive/ directory` on Jenkins-Ansible server.
+
+
