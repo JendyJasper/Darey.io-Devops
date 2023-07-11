@@ -1,4 +1,4 @@
-#Automate project 7 to 10 using ansible and jenkins
+# Automate project 7 to 10 using ansible and jenkins
 
 ### INSTALL AND CONFIGURE ANSIBLE ON EC2 INSTANCE
 
