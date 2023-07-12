@@ -123,6 +123,7 @@ ansible-playbook -i inventory/dev.yml playbooks/site.yaml
 - Launch 2 fresh EC2 instances using RHEL 8 image, we will use them as our uat servers, so give them names accordingly – Web1-UAT and Web2-UAT.
 - To create a role, you must create a directory called `roles/`, relative to the playbook file or in `/etc/ansible/` directory.
 - There are two ways how you can create this folder structure:
+
   - Use an Ansible utility called ansible-galaxy inside ansible-config-mgt/roles directory (you need to create roles directory upfront)
    ```
     mkdir roles
@@ -130,3 +131,116 @@ ansible-playbook -i inventory/dev.yml playbooks/site.yaml
     ansible-galaxy init webserver
   ```
 
+  - Create the directory/files structure manually
+
+> You can choose either way, but since you store all your codes in GitHub, it is recommended to create folders and files there rather than locally on Jenkins-Ansible server.
+
+- The new directory structure after manually creating it looks like this:
+
+<img width="396" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/2b7e79e1-12ef-4eb0-9c21-dd718a4bcaf5">
+
+- Update the inventory `ansible-config-mgt/inventory/uat.yml` file with IP addresses of your 2 UAT Web servers
+```
+[uat-webservers]
+<Web1-UAT-Server-Private-IP-Address> ansible_ssh_user='ec2-user' 
+
+<Web2-UAT-Server-Private-IP-Address> ansible_ssh_user='ec2-user' 
+```
+
+- In `/etc/ansible/ansible.cfg` file uncomment `roles_path` string and provide a full path to your roles directory `roles_path    = /home/ubuntu/ansible-config-artifact/roles`, so Ansible could know where to find configured roles.
+
+- It is time to start adding some logic to the webserver role. Go into tasks directory, and within the main.yml file, start writing configuration tasks to do the following:
+
+  - Install and configure Apache (httpd service)
+  - Clone Tooling website from GitHub https://github.com/<your-name>/tooling.git.
+  - Ensure the tooling website code is deployed to /var/www/html on each of 2 UAT Web servers.
+  - Make sure httpd service is started
+
+- Your main.yml may consist of following tasks:
+```
+---
+- name: install apache
+  become: true
+  ansible.builtin.yum:
+    name: "httpd"
+    state: present
+
+- name: install git
+  become: true
+  ansible.builtin.yum:
+    name: "git"
+    state: present
+
+- name: clone a repo
+  become: true
+  ansible.builtin.git:
+    repo: https://github.com/<your-name>/tooling.git
+    dest: /var/www/html
+    force: yes
+
+- name: copy html content to one level up
+  become: true
+  command: cp -r /var/www/html/html/ /var/www/
+
+- name: Start service httpd, if not started
+  become: true
+  ansible.builtin.service:
+    name: httpd
+    state: started
+
+- name: recursively remove /var/www/html/html/ directory
+  become: true
+  ansible.builtin.file:
+    path: /var/www/html/html
+    state: absent
+```
+
+
+# REFERENCE WEBSERVER ROLE
+
+## Step 4 – Reference ‘Webserver’ role
+
+- Within the static-assignments folder, create a new assignment for uat-webservers `uat-webservers.yml`. This is where you will reference the role.
+```
+---
+- hosts: uat-webservers
+  roles:
+     - webserver
+```
+
+- Remember that the entry point to our ansible configuration is the `site.yml` file. Therefore, you need to refer your `uat-webservers.yml role` inside `site.yml`.
+- So, we should have this in site.yml:
+
+```
+---
+- hosts: all
+- import_playbook: ../static-assignments/common.yml
+
+- hosts: uat-webservers
+- import_playbook: ../static-assignments/uat-webservers.yml
+```
+
+
+## Step 5 – Commit & Test
+
+> Commit your changes, create a Pull Request and merge them to master branch, make sure webhook triggered two consequent Jenkins jobs, they ran successfully and copied all the files to your Jenkins-Ansible server into the /home/ubuntu/ansible-config-artifact/ directory.
+
+- Now run the playbook against your uat inventory and see what happens:
+
+`ansible-playbook -i /home/ubuntu/ansible-config-artifact/inventory/uat.yml /home/ubuntu/ansible-config-artifact/playbooks/site.yml`
+
+<img width="1437" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/bd6f09c9-8c4d-4dd9-8a24-9c3b3bc30cb2">
+
+- You should be able to see both of your UAT Web servers configured and you can try to reach them from your browser:
+
+<img width="1437" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/28752837-644d-403c-ba10-9858967b28ba">
+
+http://<Web1-UAT-Server-Public-IP-or-Public-DNS-Name>/index.php
+
+<img width="1437" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/e85a632c-323b-4e41-99e7-c13641ab77ae">
+
+# OR
+
+http://<Web1-UAT-Server-Public-IP-or-Public-DNS-Name>/index.php
+
+<img width="1437" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/04b6ec3c-a6f2-47d3-adb8-0262df72a3eb">
