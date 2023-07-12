@@ -10,15 +10,22 @@
 - Go to Jenkins web console -> Manage Jenkins -> Manage Plugins -> on Available tab search for Copy Artifact and install this plugin without restarting Jenkins
 - Create a new Freestyle project and name it `save_artifacts`.
 - This project will be triggered by the completion of the existing `ansible` project.
+__________________________________________________________________
 
 <img width="1440" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/a6f2a4ce-cfa6-4269-a11c-a7a1d5ce9495">
+
+__________________________________________________________________
 
 <img width="1440" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/a7bbee1b-8a5e-45b3-94e7-3b32666ffec6">
 
 - The main idea of save_artifacts project is to save artifacts into `/home/ubuntu/ansible-config-artifact directory`. 
 - To achieve this, create a Build step and choose Copy artifacts from other project, specify ansible as a source project and `/home/ubuntu/ansible-config-artifact` as a target directory.
 
+__________________________________________________________________
+
 <img width="1440" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/0351f4c2-4aa6-4bce-a26c-804e131fd382">
+
+__________________________________________________________________
 
 - Test your set-up by making some changes in README.MD file inside your ansible-config-mgt repository (right inside master branch).
 
@@ -26,4 +33,10 @@
 
 <img width="1440" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/70ce4901-c37b-41ce-a0a5-7cb9c7383bc6">
 
+________________________________________________________
+
 <img width="1440" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/52a7e5b4-592f-42ec-a0a4-f3d2093ceeb6">
+
+__________________________________________________________________
+
+
