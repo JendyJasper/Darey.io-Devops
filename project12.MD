@@ -25,6 +25,7 @@ __________________________________________________________________
 
 <img width="1440" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/0351f4c2-4aa6-4bce-a26c-804e131fd382">
 
+
 __________________________________________________________________
 
 - Test your set-up by making some changes in README.MD file inside your ansible-config-mgt repository (right inside master branch).
@@ -111,4 +112,21 @@ cd /home/ubuntu/ansible-config-mgt/
 ansible-playbook -i inventory/dev.yml playbooks/site.yaml
 ```
 
+
+# CONFIGURE UAT WEBSERVERS WITH A ROLE ‘WEBSERVER’
+
+## Step 3 – Configure UAT Webservers with a role ‘Webserver’
+
+> We could write tasks to configure Web Servers in the same playbook, but it would be too messy, instead, we will use a dedicated role to make our configuration reusable.
+
+
+- Launch 2 fresh EC2 instances using RHEL 8 image, we will use them as our uat servers, so give them names accordingly – Web1-UAT and Web2-UAT.
+- To create a role, you must create a directory called `roles/`, relative to the playbook file or in `/etc/ansible/` directory.
+- There are two ways how you can create this folder structure:
+  - Use an Ansible utility called ansible-galaxy inside ansible-config-mgt/roles directory (you need to create roles directory upfront)
+   ```
+    mkdir roles
+    cd roles
+    ansible-galaxy init webserver
+  ```
 
