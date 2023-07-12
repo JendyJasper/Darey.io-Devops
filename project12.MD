@@ -235,12 +235,12 @@ ansible-playbook -i inventory/dev.yml playbooks/site.yaml
 
 <img width="1437" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/28752837-644d-403c-ba10-9858967b28ba">
 
-http://<Web1-UAT-Server-Public-IP-or-Public-DNS-Name>/index.php
+`http://<Web1-UAT-Server-Public-IP-or-Public-DNS-Name>/index.php`
 
 <img width="1437" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/e85a632c-323b-4e41-99e7-c13641ab77ae">
 
 # OR
 
-http://<Web1-UAT-Server-Public-IP-or-Public-DNS-Name>/index.php
+`http://<Web1-UAT-Server-Public-IP-or-Public-DNS-Name>/index.php`
 
 <img width="1437" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/04b6ec3c-a6f2-47d3-adb8-0262df72a3eb">
