@@ -98,6 +98,50 @@ ____________________________________________
 > Important Hints:
   - Since you cannot use both Nginx and Apache load balancer, you need to add a condition to enable either one – this is where you can make use of variables.
   - Declare a variable in defaults/main.yml file inside the Nginx and Apache roles. Name each variables enable_nginx_lb and enable_apache_lb respectively.
-  - Set both values to false like this enable_nginx_lb: false and enable_apache_lb: false.
-  - Declare another variable in both roles load_balancer_is_required and set its value to false as well
-  - Update both assignment and site.yml files respectively
+  - Set both values to false like this `enable_nginx_lb: false` and `enable_apache_lb: false`
+  - Declare another variable in both roles `load_balancer_is_required` and set its value to `false` as well
+  - Update both assignment and site.yml files respectively:
+
+`uat-lb.yml file`
+
+```
+- hosts: lb
+  roles:
+    - { role: nginx, when: enable_nginx_lb and load_balancer_is_required }
+    - { role: apache, when: enable_apache_lb and load_balancer_is_required }
+```
+
+`site.yml file:`
+```
+- hosts: lb
+- name: Loadbalancers assignment
+  import_playbook: ../static-assignments/uat-lb.yml
+  when: load_balancer_is_required 
+```
+- Now you can make use of `env-vars\uat.yml` file to define which loadbalancer to use in UAT environment by setting respective environmental variable to true.
+- You will activate load balancer, and enable nginx by setting these in the respective environment’s env-vars file.
+```
+enable_nginx_lb: true
+load_balancer_is_required: true
+```
+
+- The same must work with apache LB, so you can switch it by setting respective environmental variable to true and other to false.
+
+- Now when the nginx server is set to run, it skips all the plays on apache server and vice versa. We are using the same port address, port 80, so remember to stop the service of either nginx when you want to run apache load balancer and vice versa.
+
+________________________________________________
+
+<img width="776" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/25a0470e-f319-4742-945a-e0b49bc05235">
+
+Notice how it skips all apache2 plays, this is because nginx load balancer is activated.
+_______________________________________________
+
+<img width="776" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/59c009c3-705a-41b4-81f2-17d86ac77b9f">
+
+
+Notice how it skips all nginx plays, this is because apache2 load balancer is activated.
+_______________________________________________
+
+In both scenarios, the web server was reachable on same port because i always stopped the service first on the play before i switched to a new service
+
+<img width="1438" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/71f9e85c-c5df-4ecd-9537-6d8d066d11a2">
