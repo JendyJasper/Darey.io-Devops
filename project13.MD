@@ -40,3 +40,38 @@ include = Dynamic
       tags:
         - always
 ```
+
+## UPDATE SITE.YML WITH DYNAMIC ASSIGNMENTS
+
+- site.yml should now look like this:
+
+```
+- hosts: all
+- name: Include dynamic variables 
+  tasks:
+  import_playbook: ../static-assignments/common.yml 
+  include: ../dynamic-assignments/env-vars.yml
+  tags:
+    - always
+
+-  hosts: uat-webservers
+- name: uat-webservers assignment
+  import_playbook: ../static-assignments/uat-webservers.yml
+```
+
+## Community Roles
+> Now it is time to create a role for MySQL database – it should install the MySQL package, create a database and configure users. There are tons of roles that have already been developed by other open source engineers out there. These roles are actually production ready, and dynamic to accomodate most of Linux flavours. With Ansible Galaxy again, we can simply download a ready to use ansible role, and keep going.
+
+### Download Mysql Ansible Role
+
+- Browse available roles on https://galaxy.ansible.com/home. We will be using a MySQL role developed by geerlingguy.
+- Inside roles directory create your new MySQL role with `sudo ansible-galaxy install geerlingguy.mysql` and rename the folder to MySQL:
+`sudo mv geerlingguy.mysql/ mysql`
+
+- Read README.md file, and edit roles configuration to use correct credentials for MySQL required for the tooling website.
+
+
+
+
+
+
