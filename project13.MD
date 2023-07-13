@@ -145,3 +145,7 @@ _______________________________________________
 In both scenarios, the web server was reachable on same port because i always stopped the service first on the play before i switched to a new service
 
 <img width="1438" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/71f9e85c-c5df-4ecd-9537-6d8d066d11a2">
+
+### Below is my latest file structure. I used the files directory in the ansible roles to configure the nginx and apache2 config files and copied them to the remote machine
+
+<img width="321" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/9d4b70ab-ad19-4e36-930d-31e71e4f6cb6">
