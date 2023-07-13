@@ -70,7 +70,20 @@ include = Dynamic
 
 - Read README.md file, and edit roles configuration to use correct credentials for MySQL required for the tooling website.
 
+- Run the ansible playbook command to test if it works
 
+___________________________________________
+
+<img width="1364" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/5fcd6858-cd26-4235-90eb-530e71c2a699">
+
+_____________________________________________
+
+<img width="1364" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/c0c3cb7b-ae1d-43e5-a55b-fd8dc6eede57">
+
+
+____________________________________________
+
+<img width="522" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/e0fce757-1177-44b3-8c90-100db6caccdd">
 
 
 
