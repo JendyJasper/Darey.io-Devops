@@ -86,5 +86,18 @@ ____________________________________________
 <img width="522" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/e0fce757-1177-44b3-8c90-100db6caccdd">
 
 
+# LOAD BALANCER ROLES
 
+- We want to be able to choose which Load Balancer to use, Nginx or Apache, so we need to have two roles respectively:
+  - Nginx
+  - Apache
 
+- Get ansible roles from ansible galaxy to set up load balancer
+- Update both `static-assignment` and `site.yml` files to refer the roles
+
+> Important Hints:
+  - Since you cannot use both Nginx and Apache load balancer, you need to add a condition to enable either one – this is where you can make use of variables.
+  - Declare a variable in defaults/main.yml file inside the Nginx and Apache roles. Name each variables enable_nginx_lb and enable_apache_lb respectively.
+  - Set both values to false like this enable_nginx_lb: false and enable_apache_lb: false.
+  - Declare another variable in both roles load_balancer_is_required and set its value to false as well
+  - Update both assignment and site.yml files respectively
