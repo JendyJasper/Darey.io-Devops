@@ -150,7 +150,8 @@ Add two more roles to ansible:
 #### Let us see this in action.
 -  Create a new git branch and name it feature/jenkinspipeline-stages
 -  Currently we only have the Build stage. Let us add another stage called `Test`. Paste the code snippet below and push the new changes to GitHub:
-` ``
+
+```
 pipeline {
     agent any
 
