@@ -108,11 +108,24 @@ Add two more roles to ansible:
   <img width="289" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/b6a0be99-ab4c-4aaa-9430-abc3df1ddf7b">
 
 
-### Configuring Ansible For Jenkins Deployment - We will start running Ansible from Jenkins UI.
+## Configuring Ansible For Jenkins Deployment - We will start running Ansible from Jenkins UI.
 
+### Set up Ocean blue Jenkins plugin and connect your Github repo
 - Navigate to Jenkins URL
 - Install & Open Blue Ocean Jenkins Plugin
 - Create a new pipeline
+- Select Github
+- Connect Jenkins with GitHub using your access token
+- Select the repository you want to use and Create a new Pipeline
+- Click on Administration to exit the Blue Ocean console because you will create `Jenkinsfile` manually later.
+- Here is our newly created pipeline. It takes the name of your GitHub repository.
+
+-----
+<img width="1440" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/65a216b4-b879-4a65-84eb-acd65e6ea08b">
+-----
+
+
+### Let us create our Jenkinsfile
 
 
 
