@@ -148,7 +148,7 @@ Add two more roles to ansible:
 > Notice that this pipeline is a multibranch one. This means, if there were more than one branch in GitHub, Jenkins would have scanned the repository to discover them all and we would have been able to trigger a build for each branch.
 
 #### Let us see this in action.
--  Create a new git branch and name it feature/jenkinspipeline-stages
+-  Create a new git branch and name it feature/jenkinspipeline-stages `git checkout -b feature/jenkinspipeline-stages`
 -  Currently we only have the Build stage. Let us add another stage called `Test`. Paste the code snippet below and push the new changes to GitHub:
 
 ```
@@ -174,6 +174,22 @@ pipeline {
     }
 }
 ```
+
+- To make your new branch show up in Jenkins, we need to tell Jenkins to scan the repository.
+  - Click on the "Administration" button
+  - Navigate to the Ansible project and click on "Scan repository now"
+  - Refresh the page and both branches will start building automatically. You can go into Blue Ocean and see both branches there too.
+  - In Blue Ocean, you can now see how the Jenkinsfile has caused a new step in the pipeline launch build for the new branch.
+
+-----
+<img width="1440" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/43cca7e8-d844-425f-95e1-498e85fc7379">
+
+-----
+<img width="1440" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/2a8c245a-e6ff-466d-99df-db0d221f3ce5">
+
+-----
+<img width="1440" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/a216c1d8-936a-4086-a1f4-77c19569a31e">
+
 
 
 
