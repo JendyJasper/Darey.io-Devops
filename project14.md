@@ -207,3 +207,13 @@ Add more stages and test nested staged:
 -----
 <img width="1440" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/e81c76eb-ad8e-4555-a4d5-3d8e8ab42ab5">
 
+
+# RUNNING ANSIBLE PLAYBOOK FROM JENKINS
+- Installing Ansible on Jenkins
+- Installing Ansible plugin in Jenkins UI
+- Creating Jenkinsfile from scratch.
+- - Note: Ensure that Ansible runs against the Dev environment successfully.
+ 
+Tutorial to guide through the step: https://www.youtube.com/watch?v=PRpEbFZi7nI
+
+
