@@ -6,8 +6,8 @@
 
 
 - The CI inventory file will look like this:
-- ```
-  [jenkins]
+```
+[jenkins]
 <\Jenkins-Private-IP-Address>
 
 [nginx]
