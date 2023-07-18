@@ -58,32 +58,40 @@ pentest-tooling
 
 > The db group has a slightly different configuration. It uses a RedHat/Centos Linux distro. Others are based on Ubuntu (in this case user is ubuntu). Therefore, the user required for connectivity and path to python interpreter are different. If all your environment is based on Ubuntu, you may not need this kind of set up.
 
+
+_______________________________________________________________
 > The other environments - `pre-prod, prod, sit and uat` all will have same inventory structure as `dev` environment.
 
 ![image](https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/2a5bc192-b5bd-4572-a00c-734a80fb278c)
 
+_______________________________________________________________
 - CI ENVIRONMENT
   - ![image](https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/505ffb9a-6a6d-41fa-925d-d2c8bc542cbf)
+ 
+_______________________________________________________________
 
 - OTHER ENVIRONMENTS
   - ![image](https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/e3935c5e-fc4e-4af2-9b21-72ad93670683)
+ 
+_______________________________________________________________
 
-Server                                      Domain
-___________________________________________________________________                                             	
-Jenkins                                    	https://ci.infradev.jendyjasper.com
-Sonarqube	                                  https://sonar.infradev.jendyjasper.com
-Artifactory	                                https://artifacts.infradev..jendyjasper.com
-Production Tooling	                        https://tooling.jendyjasper.com
-Pre-Prod Tooling	                          https://tooling.preprod.jendyjasper.com
-Pentest Tooling	                            https://tooling.pentest.jendyjasper.com
-UAT Tooling	                                https://tooling.uat.jendyjasper.com
-SIT Tooling	                                https://tooling.sit.jendyjasper.com
-Dev Tooling	                                https://tooling.dev.jendyjasper.com
-Production TODO-WebApp	                    https://todo.jendyjasper.com
-Pre-Prod TODO-WebApp	                      https://todo.preprod.jendyjasper.com
-Pentest TODO-WebApp	                        https://todo.pentest.jendyjasper.com   
-UAT TODO-WebApp	                            https://todo.uat.jendyjasper.com
-SIT TODO-WebApp	                            https://todo.sit.jendyjasper.com
-Dev TODO-WebApp	                            https://todo.dev.jendyjasper.com
+  Server                                |      Domain
+  :------------------------------------ |:----------------------------------------------------  |                          	
+| Jenkins                               |      https://ci.infradev.jendyjasper.com              |
+| Sonarqube	                            |      https://sonar.infradev.jendyjasper.com           |
+| Artifactory	                          |      https://artifacts.infradev..jendyjasper.com      |
+| Production Tooling	                  |      https://tooling.jendyjasper.com                  |
+| Pre-Prod Tooling	                    |      https://tooling.preprod.jendyjasper.com          |
+| Pentest Tooling	                      |      https://tooling.pentest.jendyjasper.com          |
+| UAT Tooling	                          |      https://tooling.uat.jendyjasper.com              |
+| SIT Tooling	                          |      https://tooling.sit.jendyjasper.com              | 
+| Dev Tooling	                          |      https://tooling.dev.jendyjasper.com              |
+| Production TODO-WebApp	              |      https://todo.jendyjasper.com                     |
+| Pre-Prod TODO-WebApp	                |      https://todo.preprod.jendyjasper.com             |
+| Pentest TODO-WebApp	                  |      https://todo.pentest.jendyjasper.com             |
+| UAT TODO-WebApp	                      |      https://todo.uat.jendyjasper.com                 |
+| SIT TODO-WebApp	                      |      https://todo.sit.jendyjasper.com                 |
+| Dev TODO-WebApp	                      |      https://todo.dev.jendyjasper.com                 |
+  :------------------------------------ |:----------------------------------------------------  |                          	
 
 
