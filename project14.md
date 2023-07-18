@@ -108,6 +108,11 @@ Add two more roles to ansible:
   <img width="289" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/b6a0be99-ab4c-4aaa-9430-abc3df1ddf7b">
 
 
+### Configuring Ansible For Jenkins Deployment - We will start running Ansible from Jenkins UI.
+
+- Navigate to Jenkins URL
+- Install & Open Blue Ocean Jenkins Plugin
+- Create a new pipeline
 
 
 
