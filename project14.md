@@ -94,3 +94,20 @@ _______________________________________________________________
 | Dev TODO-WebApp	                      |      https://todo.dev.jendyjasper.com                 |
 
 
+______________________________________________________________
+
+# ANSIBLE ROLES FOR CI ENVIRONMENT
+Add two more roles to ansible:
+- SonarQube: Inspection of code quality
+- Artifactory: Binary repository or source code repository 
+  
+`sudo ansible-galaxy init artifactory` and `sudo ansible-galaxy init sonarqube`
+
+- The new role file structure will look like this:
+
+  <img width="289" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/b6a0be99-ab4c-4aaa-9430-abc3df1ddf7b">
+
+
+
+
+
