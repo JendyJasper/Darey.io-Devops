@@ -92,6 +92,5 @@ _______________________________________________________________
 | UAT TODO-WebApp	                      |      https://todo.uat.jendyjasper.com                 |
 | SIT TODO-WebApp	                      |      https://todo.sit.jendyjasper.com                 |
 | Dev TODO-WebApp	                      |      https://todo.dev.jendyjasper.com                 |
-  :------------------------------------ |:----------------------------------------------------  |                          	
 
 
