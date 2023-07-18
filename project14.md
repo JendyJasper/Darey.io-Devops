@@ -8,7 +8,7 @@
 - The CI inventory file will look like this:
 ```
 [jenkins]
-<\Jenkins-Private-IP-Address>
+<Jenkins-Private-IP-Address>
 
 [nginx]
 <Nginx-Private-IP-Address>
@@ -63,10 +63,10 @@ pentest-tooling
 ![image](https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/2a5bc192-b5bd-4572-a00c-734a80fb278c)
 
 - CI ENVIRONMENT
-![image](https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/505ffb9a-6a6d-41fa-925d-d2c8bc542cbf)
+  - ![image](https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/505ffb9a-6a6d-41fa-925d-d2c8bc542cbf)
 
 - OTHER ENVIRONMENTS
-![image](https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/e3935c5e-fc4e-4af2-9b21-72ad93670683)
+  - ![image](https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/e3935c5e-fc4e-4af2-9b21-72ad93670683)
 
 Server                                      Domain
 ___________________________________________________________________                                             	
