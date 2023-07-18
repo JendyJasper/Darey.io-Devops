@@ -191,5 +191,11 @@ pipeline {
 <img width="1440" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/a216c1d8-936a-4086-a1f4-77c19569a31e">
 
 
+-----
+
+Add more stages and test nested staged:
+
+-----
+<img width="1440" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/141383d0-d432-4899-929e-81d720165df4">
 
 
