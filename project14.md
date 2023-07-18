@@ -122,10 +122,31 @@ Add two more roles to ansible:
 
 -----
 <img width="1440" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/65a216b4-b879-4a65-84eb-acd65e6ea08b">
+
 -----
 
 
 ### Let us create our Jenkinsfile
+
+- Inside the Ansible project, create a new directory `deploy` and start a new file `Jenkinsfile` inside the directory.
+- This pipeline currently has just one stage called Build and the only thing we are doing is using the shell script module to echo Building Stage
+- Now go back into the Ansible pipeline in Jenkins, and select configure
+- Scroll down to `Build Configuration` section and specify the location of the Jenkinsfile at `deploy/Jenkinsfile`
+  -----
+<img width="1440" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/bafee983-5eb9-466a-b98b-336a986f94c3">
+
+- Back to the pipeline again, this time click "Build now"
+- Try triggering the build again from Blue Ocean interface
+
+-----
+<img width="1440" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/ea1a5ef9-f19c-4bdd-a75e-9e18fe3e4d54">
+
+  - Click on Blue Ocean
+  - select your project
+  - Click on the play button against the branch
+
+> Notice that this pipeline is a multibranch one. This means, if there were more than one branch in GitHub, Jenkins would have scanned the repository to discover them all and we would have been able to trigger a build for each branch.
+
 
 
 
