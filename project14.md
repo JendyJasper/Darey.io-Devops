@@ -198,4 +198,12 @@ Add more stages and test nested staged:
 -----
 <img width="1440" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/141383d0-d432-4899-929e-81d720165df4">
 
+-----
+<img width="1440" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/f134f923-8a5f-483d-9d5f-4300b8473519">
+
+-----
+<img width="1440" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/30e524dc-637b-45bc-9c13-acc452619a52">
+
+-----
+<img width="1440" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/e81c76eb-ad8e-4555-a4d5-3d8e8ab42ab5">
 
