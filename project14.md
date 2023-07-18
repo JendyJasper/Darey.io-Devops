@@ -8,7 +8,7 @@
 - The CI inventory file will look like this:
 - ```
   [jenkins]
-<Jenkins-Private-IP-Address>
+<\Jenkins-Private-IP-Address>
 
 [nginx]
 <Nginx-Private-IP-Address>
