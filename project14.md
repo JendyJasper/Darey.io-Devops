@@ -227,7 +227,7 @@ Tutorial to install php 7.4
 Commands to dynamic set hostname, domain name and IP address to config files:
   -  server_IP {{ ip_address }};
   -  domain: {{ ansible_nodename }}
-  -  hostname: {{ ansible_hostname }}
+  -  hostname: {{ansible_default_ipv4.address}}
 
 
 
