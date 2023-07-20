@@ -214,6 +214,16 @@ Add more stages and test nested staged:
 - Creating Jenkinsfile from scratch.
 - - Note: Ensure that Ansible runs against the Dev environment successfully.
  
-Tutorial to guide through the step: https://www.youtube.com/watch?v=PRpEbFZi7nI
+Tutorial to guide through the step: 
+  -  https://www.youtube.com/watch?v=PRpEbFZi7nI
+
+Tutorial on configuring nginx and php on RHEL/CENTOS server: 
+  -  https://www.linuxhelp.com/how-to-test-the-php-configuration-on-apache-and-nginx-web-servers-in-centos-7-6
+  -  https://www.youtube.com/watch?v=gd1y6vFGW9w&t=2
+
+Tutorial to install php 7.4
+  -  https://computingforgeeks.com/how-to-install-php-7-4-on-centos-rhel-8/
+
+
 
 
