@@ -224,6 +224,11 @@ Tutorial on configuring nginx and php on RHEL/CENTOS server:
 Tutorial to install php 7.4
   -  https://computingforgeeks.com/how-to-install-php-7-4-on-centos-rhel-8/
 
+Commands to dynamic set hostname, domain name and IP address to config files:
+  -  server_IP {{ ip_address }};
+  -  domain: {{ ansible_nodename }}
+  -  hostname: {{ ansible_hostname }}
+
 
 
 
