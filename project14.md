@@ -246,6 +246,12 @@ Tutorial to Install Apache, MySQL, PHP (LAMP) on CentOS/RHEL 7
   -  https://tecadmin.net/install-lamp-apache-mysql-and-php-on-centos-rhel-7/
   >  Remember that php-mysql is for ubuntu while php-mysqlnd is for redhat. Also, when you encounter an error, always try to read the log files of the server to get the actuall reason for the error. The file is usually in /var/log/nginx/error.log.
 
+Tutorial on fixing proxy 502 bad gateway error rhel and maybe ubuntu
+  -  https://stackoverflow.com/questions/49597942/load-balancer-on-nginx-give-502-bad-gateway
+  -  https://stackoverflow.com/questions/23948527/13-permission-denied-while-connecting-to-upstreamnginx
+  -  https://stackoverflow.com/questions/70111791/nginx-13-permission-denied-while-connecting-to-upstream
+  -  https://serverfault.com/questions/819423/reverse-proxy-nginx-bad-gateway
+
 
 
 
