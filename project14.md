@@ -252,6 +252,12 @@ Tutorial on fixing proxy 502 bad gateway error rhel and maybe ubuntu. Also consi
   -  https://stackoverflow.com/questions/70111791/nginx-13-permission-denied-while-connecting-to-upstream
   -  https://serverfault.com/questions/819423/reverse-proxy-nginx-bad-gateway
 
+Tutorial to enable your server to connect to a database over HTTP(Especially for RHEL server)
+  -  https://stackoverflow.com/questions/41178774/connect-database-error-type-2002-permission-denied
+
+Tutorial to print the actual database connection error which should help during debugging
+  -  https://www.plus2net.com/php_tutorial/mysqli_connection.php
+
 
 
 
