@@ -455,7 +455,7 @@ sudo apt-get install wget unzip -y
 ```
 -  Set default JDK – To set default JDK or switch to OpenJDK enter below command: `sudo update-alternatives --config java`
 -  If you have multiple versions of Java installed, you should see a list like below:
-
+```
 Selection    Path                                            Priority   Status
 
 ------------------------------------------------------------
@@ -467,7 +467,7 @@ Selection    Path                                            Priority   Status
   2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
 
 * 3            /usr/lib/jvm/java-8-oracle/jre/bin/java          1081      manual mode
-
+```
 Type "1" to switch OpenJDK 11
 
 Verify the set JAVA Version: `java -version`
