@@ -643,9 +643,144 @@ sudo systemctl enable sonar
 sudo systemctl status sonar
 ```
 ### Access SonarQube
-To access SonarQube using browser, type server’s IP address followed by port 9000
-http://server_IP:9000 OR http://localhost:9000
-Login to SonarQube with default administrator username and password – admin
+To access SonarQube using browser, type server’s IP address followed by port 9000.
+http://server_IP:9000 OR http://localhost:9000.
+Login to SonarQube with default administrator username and password – admin.
 Now, when SonarQube is up and running, it is time to setup our Quality gate in Jenkins.
 
+#  CONFIGURE SONARQUBE AND JENKINS FOR QUALITY GATE
+-  In Jenkins, install SonarScanner plugin
+-  Navigate to configure system in Jenkins. Add SonarQube server as shown below: `Manage Jenkins > Configure System`
+
+-----
+![image](https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/f956b7bc-4de0-41cb-8e40-3ae7998d44c1)
+-----
+-  Generate authentication token in SonarQube: `User > My Account > Security > Generate Tokens`
+-----
+![image](https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/70a3f87e-1ab1-46a3-b812-eb1106f4a1b4)
+-----
+-  Configure Quality Gate Jenkins Webhook in SonarQube – The URL should point to your Jenkins server http://{JENKINS_HOST}/sonarqube-webhook/: `Administration > Configuration > Webhooks > Create`
+-----
+![image](https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/14ed70ca-803d-4790-b243-431267685fcf)
+-----
+-  Setup SonarQube scanner from Jenkins – Global Tool Configuration
+-----
+![image](https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/071b29c6-40ab-4d32-986a-ff7f4427065d)
+-----
+
+### Update Jenkins Pipeline to include SonarQube scanning and Quality Gate
+-  Below is the snippet for a Quality Gate stage in Jenkinsfile.
+```
+stage('SonarQube Quality Gate') {
+        environment {
+            scannerHome = tool 'SonarQubeScanner'
+        }
+        steps {
+            withSonarQubeEnv('sonarqube') {
+                sh "${scannerHome}/bin/sonar-scanner"
+            }
+
+        }
+    }
+```
+>  NOTE: The above step will fail because we have not updated `sonar-scanner.properties
+-  Configure sonar-scanner.properties – From the step above, Jenkins will install the scanner tool on the Linux server. You will need to go into the tools directory on the server to configure the properties file in which SonarQube will require to function during pipeline execution: `cd /var/lib/jenkins/tools/hudson.plugins.sonar.SonarRunnerInstallation/SonarQubeScanner/conf/`
+- Open sonar-scanner.properties file: `sudo vi sonar-scanner.properties`
+- Add configuration related to php-todo project
+```
+sonar.host.url=http://<SonarQube-Server-IP-address>:9000
+sonar.projectKey=php-todo
+#----- Default source code encoding
+sonar.sourceEncoding=UTF-8
+sonar.php.exclusions=**/vendor/**
+sonar.php.coverage.reportPaths=build/logs/clover.xml
+sonar.php.tests.reportPath=build/logs/junit.xml
+```
+>  HINT: To know what exactly to put inside the sonar-scanner.properties file, SonarQube has a configurations page where you can get some directions.
+-----
+![image](https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/f64f1c04-150f-4bfc-9ca6-c620f0f7301b)
+-----
+>  A brief explanation of what is going on the the stage – set the environment variable for the scannerHome use the same name used when you configured SonarQube Scanner from Jenkins Global Tool Configuration. If you remember, the name was SonarQubeScanner. Then, within the steps use shell to run the scanner from bin directory.
+
+-  To further examine the configuration of the scanner tool on the Jenkins server – navigate into the tools directory
+`cd /var/lib/jenkins/tools/hudson.plugins.sonar.SonarRunnerInstallation/SonarQubeScanner/bin`
+-  List the content to see the scanner tool sonar-scanner. That is what we are calling in the pipeline script.
+-  Output of  `ls -latr`
+```
+ubuntu@ip-172-31-16-176:/var/lib/jenkins/tools/hudson.plugins.sonar.SonarRunnerInstallation/SonarQubeScanner/bin$ ls -latr
+total 24
+-rwxr-xr-x 1 jenkins jenkins 2550 Oct  2 12:42 sonar-scanner.bat
+-rwxr-xr-x 1 jenkins jenkins  586 Oct  2 12:42 sonar-scanner-debug.bat
+-rwxr-xr-x 1 jenkins jenkins  662 Oct  2 12:42 sonar-scanner-debug
+-rwxr-xr-x 1 jenkins jenkins 1823 Oct  2 12:42 sonar-scanner
+drwxr-xr-x 2 jenkins jenkins 4096 Dec 26 18:42 .
+```
+-  Let's generate the jenkins configurations ourselves
+-  To generate Jenkins code, navigate to the dashboard for the php-todo pipeline and click on the Pipeline Syntax menu item
+`Dashboard > php-todo > Pipeline Syntax`
+-----
+![image](https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/0dfabc06-8c0d-491a-9bd8-3808ee4d92bf)
+-----
+-  Click on Steps and select withSonarQubeEnv – This appears in the list because of the previous SonarQube configurations you have done in Jenkins. Otherwise, it would not be there.
+
+-----
+![image](https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/af3bc41a-6e9d-4922-bb1c-d1168fd9ad1a)
+------
+-  Within the generated block, you will use the sh command to run shell on the server. https://docs.sonarsource.com/sonarqube/latest/analyzing-source-code/scanners/jenkins-extension-sonarqube/
+
+
+### End-to-End Pipeline Overview
+-  Sonarqube
+-----
+![image](https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/ea9c9cd0-353a-45ad-896a-c122ca68f3f7)
+-----
+![image](https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/5f8703de-3454-405c-ae75-89e7152fa3b3)
+-----
+
+-  Jenkins
+![image](https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/aac09811-50e9-4aab-b8b1-80170f063f97)
+
+
+Our code has bugs as we can see, so we shouldn't push to production yet. We need to add a condition to enroce that it passes quality gate test before it deploys both the artifact and to an environment.
+
+-  Let us update our Jenkinsfile to implement this:
+-  First, we will include a When condition to run Quality Gate whenever the running branch is either develop, hotfix, release, main, or master: `when { branch pattern: "^develop*|^hotfix*|^release*|^main*", comparator: "REGEXP"}`
+-  Then we add a timeout step to wait for SonarQube to complete analysis and successfully finish the pipeline only when code quality is acceptable.
+```
+    timeout(time: 1, unit: 'MINUTES') {
+        waitForQualityGate abortPipeline: true
+    }
+```
+-  The complete stage will now look like this:
+```
+    stage('SonarQube Quality Gate') {
+      when { branch pattern: "^develop*|^hotfix*|^release*|^main*", comparator: "REGEXP"}
+        environment {
+            scannerHome = tool 'SonarQubeScanner'
+        }
+        steps {
+            withSonarQubeEnv('sonarqube') {
+                sh "${scannerHome}/bin/sonar-scanner -Dproject.settings=sonar-project.properties"
+            }
+            timeout(time: 1, unit: 'MINUTES') {
+                waitForQualityGate abortPipeline: true
+            }
+        }
+    }
+```
+-  To test, create different branches and push to GitHub. You will realise that only branches other than develop, hotfix, release, main, or master will be able to deploy the code.
+
+-  If the branch name is not among those specified above, it should look like this:
+------
+![image](https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/8743b590-23ee-473e-8bd5-7ada4dcf91bc)
+------
+-  If the branch is among those listed, it will first pass the quality gate test before proceeding, if it passes, it deploys to environment and deploy artifact and if not, it won't run the rest of the codes. See both pictures
+
+-----
+![image](https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/d5d6a8eb-234d-43d6-b3bf-a0a645d0182a)
+------
+![image](https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/2ff85c84-8bf7-45e7-969b-aba5aa67d213)
+------
+
+>  Notice that with the current state of the code, it cannot be deployed to Integration environments due to its quality. In the real world, DevOps engineers will push this back to developers to work on the code further, based on SonarQube quality report. Once everything is good with code quality, the pipeline will pass and proceed with sipping the codes further to a higher environment.
 
