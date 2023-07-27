@@ -784,3 +784,7 @@ Our code has bugs as we can see, so we shouldn't push to production yet. We need
 
 >  Notice that with the current state of the code, it cannot be deployed to Integration environments due to its quality. In the real world, DevOps engineers will push this back to developers to work on the code further, based on SonarQube quality report. Once everything is good with code quality, the pipeline will pass and proceed with sipping the codes further to a higher environment.
 
+-  Artifactory
+------
+![image](https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/34b3c19e-1206-4fa2-9599-45708f6ec1ba)
+------
