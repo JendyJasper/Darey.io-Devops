@@ -419,3 +419,95 @@ stage ('Deploy to Dev Environment') {
 ```
 
 > The build job used in this step tells Jenkins to start another job. In this case it is the ansible-project job, and we are targeting the main branch. Hence, we have ansible-project/main. Since the Ansible project requires parameters to be passed in, we have included this by specifying the parameters section. The name of the parameter is env and its value is dev. Meaning, deploy to the Development environment.
+
+
+# SONARQUBE INSTALLATION
+### Install SonarQube on Ubuntu 20.04 With PostgreSQL as Backend Database
+> We will make some Linux Kernel configuration changes to ensure optimal performance of the tool – we will increase vm.max_map_count, file discriptor and ulimit.
+
+-  Tune Linux Kernel
+-  This can be achieved by making session changes which does not persist beyond the current session terminal.
+```
+sudo sysctl -w vm.max_map_count=262144
+sudo sysctl -w fs.file-max=65536
+ulimit -n 65536
+ulimit -u 4096
+```
+-  To make a permanent change, edit the file `/etc/security/limits.conf` and append the below
+```
+sonarqube   -   nofile   65536
+sonarqube   -   nproc    4096
+```
+
+-  Before installing, let us update and upgrade system packages:
+```
+sudo apt-get update
+sudo apt-get upgrade
+```
+-  Install wget and unzip packages
+```
+sudo apt-get install wget unzip -y
+```
+-  Install OpenJDK and Java Runtime Environment (JRE) 11
+```
+ sudo apt-get install openjdk-11-jdk -y
+ sudo apt-get install openjdk-11-jre -y
+```
+-  Set default JDK – To set default JDK or switch to OpenJDK enter below command: `sudo update-alternatives --config java`
+-  If you have multiple versions of Java installed, you should see a list like below:
+
+Selection    Path                                            Priority   Status
+
+------------------------------------------------------------
+
+  0            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      auto mode
+
+  1            /usr/lib/jvm/java-11-openjdk-amd64/bin/java      1111      manual mode
+
+  2            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode
+
+* 3            /usr/lib/jvm/java-8-oracle/jre/bin/java          1081      manual mode
+
+Type "1" to switch OpenJDK 11
+
+Verify the set JAVA Version: `java -version`
+
+### Install and Setup PostgreSQL 10 Database for SonarQube
+
+-  The command below will add PostgreSQL repo to the repo list:
+
+`sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" >> /etc/apt/sources.list.d/pgdg.list'`
+
+-  Download PostgreSQL software
+`wget -q https://www.postgresql.org/media/keys/ACCC4CF8.asc -O - | sudo apt-key add -`
+-  Install PostgreSQL Database Server
+`sudo apt-get -y install postgresql postgresql-contrib`
+-  Start PostgreSQL Database Server
+`sudo systemctl start postgresql`
+-  Enable it to start automatically at boot time
+`sudo systemctl enable postgresql`
+-  Change the password for default postgres user (Pass in the password you intend to use, and remember to save it somewhere)
+`sudo passwd postgres`
+-  Switch to the postgres user
+`su - postgres`
+-  Create a new user by typing
+`createuser sonar`
+-  Switch to the PostgreSQL shell
+`psql`
+-  Set a password for the newly created user for SonarQube database
+`ALTER USER sonar WITH ENCRYPTED password 'sonar';`
+-  Create a new database for PostgreSQL database by running:
+`CREATE DATABASE sonarqube OWNER sonar;`
+-  Grant all privileges to sonar user on sonarqube Database.
+`grant all privileges on DATABASE sonarqube to sonar;`
+-  Exit from the psql shell:
+`\q`
+-  Switch back to the sudo user by running the exit command.
+`exit`
+### Install SonarQube on Ubuntu 20.04 LTS
+-  Navigate to the tmp directory to temporarily download the installation files
+`cd /tmp && sudo wget https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-7.9.3.zip`
+-  Unzip the archive setup to /opt directory
+`sudo unzip sonarqube-7.9.3.zip -d /opt`
+-  Move extracted setup to /opt/sonarqube directory
+`sudo mv /opt/sonarqube-7.9.3 /opt/sonarqube`
