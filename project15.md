@@ -27,6 +27,6 @@ There are few requirements that must be met before you begin:
 
 >  NOTE : As you proceed with configuration, ensure that all resources are appropriately tagged, for example:
 
-    -  Project: `<Give your project a name>`
+    -  Project: <Give your project a name>
     -  Environment: `<dev>`
     -  Automated: `<No>`(If you create a resource using an automation tool, it would be `<Yes>`)
