@@ -26,6 +26,6 @@ There are few requirements that must be met before you begin:
 -  Create a hosted zone in AWS, and map it to your domain: https://youtu.be/IjcHp94Hq8A
 
 >  NOTE : As you proceed with configuration, ensure that all resources are appropriately tagged, for example:
-    -  Project: `<Give your project a name>`
-    -  Environment: `<dev>`
-    -  Automated: `<No> `(If you create a resource using an automation tool, it would be `<Yes>`)
+        -  Project: `<Give your project a name>`
+        -  Environment: `<dev>`
+        -  Automated: `<No> `(If you create a resource using an automation tool, it would be `<Yes>`)
