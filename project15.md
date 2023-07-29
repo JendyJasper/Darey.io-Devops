@@ -17,11 +17,11 @@ increased traffic and, at the same time, has reasonable cost.
 There are few requirements that must be met before you begin:
 
 -  Properly configure your AWS account and Organization Unit: https://youtu.be/9PQYCc_20-Q
-  -  Create an AWS Master account. (Also known as Root Account)
-  -  Within the Root account, create a sub-account and name it DevOps. (You will need another email address to complete this)
-  -  Within the Root account, create an AWS Organization Unit (OU). Name it Dev. (We will launch Dev resources in there)
-  -  Move the DevOps account into the Dev OU.
-  -  Login to the newly created AWS account using the new email address.
+    -  Create an AWS Master account. (Also known as Root Account)
+    -  Within the Root account, create a sub-account and name it DevOps. (You will need another email address to complete this)
+    -  Within the Root account, create an AWS Organization Unit (OU). Name it Dev. (We will launch Dev resources in there)
+    -  Move the DevOps account into the Dev OU.
+    -  Login to the newly created AWS account using the new email address.
 -  Create a domain name for your fictitious company.
 -  Create a hosted zone in AWS, and map it to your domain: https://youtu.be/IjcHp94Hq8A
 
