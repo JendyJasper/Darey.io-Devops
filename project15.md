@@ -66,13 +66,47 @@ There are few requirements that must be met before you begin:
 -----
 #### NAT GATEWAYS
 -----
-![image](https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/ffc6592c-00f9-4d12-98b5-6403c56a9fe5)
+![image](https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/86c6fd39-89bf-4b17-8bf0-0155e78b1edb)
 -----
 ### ELASTIC IP
 ![image](https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/797687b0-a216-402d-9bb0-253d50f85438)
 -----
-
-![image](https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/86c6fd39-89bf-4b17-8bf0-0155e78b1edb)
-
-
-
+### SECURITY GROUPS
+------
+![image](https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/ada49385-bb97-4202-b387-10da13e64d7d)
+### EC2
+-----
+![image](https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/9b8f3d86-55ef-4882-a9a0-4f04df1e8850)
+-----
+### LAUNCH TEMPLATES
+-----
+![image](https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/42a9c8de-4743-4e25-b39b-977fd717408e)
+-----
+### LOAD BALANCERS
+-----
+![image](https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/c9b88763-4f1a-4d04-b95c-e2fdc90431c3)
+-----
+### TARGET GROUPS
+-----
+![image](https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/567231f7-e4c5-4423-b03d-5ea8c5b92131)
+-----
+### AUTO SCALING GROUPS
+-----
+![image](https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/e01a34d2-a700-4f79-bd95-69adbfeeec2e)
+-----
+### EFS
+-----
+![image](https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/8736d064-a84e-4414-803b-33f46c7e5112)
+-----
+### EFS ACCESS POINTS
+-----
+![image](https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/363a98fe-54ae-4f77-9b2a-518d3c9c6de4)
+------
+### SUBNET GROUPS
+-----
+![image](https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/e40c60da-da2b-4a17-a955-6353f325a8e4)
+-----
+### RDS
+-----
+![image](https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/07d5c55b-5995-4f1a-a866-1de893f70f7b)
+-----
