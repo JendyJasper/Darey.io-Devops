@@ -104,7 +104,7 @@ There are few requirements that must be met before you begin:
 ------
 ### SUBNET GROUPS
 -----
-![image](https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/e40c60da-da2b-4a17-a955-6353f325a8e4)
+<img width="1430" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/e49814a0-8d34-47c3-adae-96c9e0090ca3">
 -----
 ### RDS
 -----
