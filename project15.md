@@ -103,16 +103,14 @@ There are few requirements that must be met before you begin:
 ![image](https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/363a98fe-54ae-4f77-9b2a-518d3c9c6de4)
 ------
 ### SUBNET GROUPS
------
+------
 <img width="1430" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/e49814a0-8d34-47c3-adae-96c9e0090ca3">
------
+------
 ### RDS
------
-
+------
 ![image](https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/07d5c55b-5995-4f1a-a866-1de893f70f7b)
 -----
 
 <img width="1430" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/2a9d6ce8-f8ef-42c0-bbe9-e41f86887835">
 -----
 <img width="1430" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/e1d87cca-ad78-42b8-ab23-fd42441c49b7">
-------
