@@ -108,6 +108,7 @@ There are few requirements that must be met before you begin:
 -----
 ### RDS
 -----
+
 ![image](https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/07d5c55b-5995-4f1a-a866-1de893f70f7b)
 -----
 
