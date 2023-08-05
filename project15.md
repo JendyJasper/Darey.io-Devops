@@ -106,6 +106,7 @@ There are few requirements that must be met before you begin:
 ------
 <img width="1430" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/e49814a0-8d34-47c3-adae-96c9e0090ca3">
 ------
+
 ### RDS
 ------
 
@@ -115,6 +116,7 @@ There are few requirements that must be met before you begin:
 -----
 <img width="1430" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/2a9d6ce8-f8ef-42c0-bbe9-e41f86887835">
 -----
+
 ### TOOLING
 -----
 <img width="1430" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/e1d87cca-ad78-42b8-ab23-fd42441c49b7">
