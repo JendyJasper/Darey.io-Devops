@@ -55,8 +55,8 @@ A new directory has been created after running the terraform init command. the f
 
 > Moving on, let us create the only resource we just defined. aws_vpc. But before we do that, we should check to see what terraform intends to create before we tell it to go ahead and create it.
 -    Run `terraform plan`
--`Then, if you are happy with changes planned, execute `terraform apply`
------
+-    Then, if you are happy with changes planned, execute `terraform apply`
+
 Terraform plan command
 -----
 <img width="1418" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/4b8caac8-ffff-44bf-88aa-a47d54a4d810">
