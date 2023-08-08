@@ -139,8 +139,8 @@ __result of the destruction__
 -    Fixing Hard Coded Values: We will introduce variables, and remove hard coding.
     -    Starting with the provider block, declare a variable named region, give it a default value, and update the provider section by referring to the declared variable.
      ```
-            variable "region" {
-        default = "us-east-1"
+     variable "region" {
+     default = "us-east-1"
     }
     provider "aws" {
         region = var.region
