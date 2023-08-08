@@ -84,3 +84,52 @@ It looks like this:
 It is a json format file that stores information about a user: user’s ID, what operation he/she is doing, timestamp, and location of the state file.
 
 ### Subnets resource section
+
+According to our architectural design, we require 6 subnets:
+
+-    2 public
+-    2 private for webservers
+-    2 private for data layer
+Let us create the first 2 public subnets.
+
+Add the below configuration to the main.tf file:
+```
+
+# Create public subnets1
+    resource "aws_subnet" "public1" {
+    vpc_id                     = aws_vpc.main.id
+    cidr_block                 = "172.16.0.0/24"
+    map_public_ip_on_launch    = true
+    availability_zone          = "us-east-1a"
+
+}
+
+# Create public subnet2
+    resource "aws_subnet" "public2" {
+    vpc_id                     = aws_vpc.main.id
+    cidr_block                 = "172.16.1.0/24"
+    map_public_ip_on_launch    = true
+    availability_zone          = "us-east-1b"
+}
+```
+-    We are creating 2 subnets, therefore declaring 2 resource blocks – one for each of the subnets.
+-    We are using the vpc_id argument to interpolate the value of the VPC id by setting it to aws_vpc.main.id. This way, Terraform knows inside which VPC to create the subnet.
+-    Run terraform plan and terraform apply
+-----
+<img width="1418" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/76c029df-94ef-412b-9ab2-023cdba71187">
+-----
+
+**Observations:**
+
+-    Hard coded values: Remember our best practice hint from the beginning? Both the availability_zone and cidr_block arguments are hard coded. We should always endeavour to make our work dynamic.
+-    Multiple Resource Blocks: Notice that we have declared multiple resource blocks for each subnet in the code. This is bad coding practice. We need to create a single resource block that can dynamically create resources without specifying multiple blocks. Imagine if we wanted to create 10 subnets, our code would look very clumsy. So, we need to optimize this by introducing a count argument.
+
+Now let us improve our code by refactoring it.
+
+_First, destroy the current infrastructure. Since we are still in development, this is totally fine. Otherwise, DO NOT DESTROY an infrastructure that has been deployed to production._
+
+_To destroy whatever has been created run terraform destroy command, and type yes after evaluating the plan._
+
+__result of the destruction__
+-----
+<img width="1418" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/d54e1ea1-61aa-4745-a431-bae9ced0e2f7">
