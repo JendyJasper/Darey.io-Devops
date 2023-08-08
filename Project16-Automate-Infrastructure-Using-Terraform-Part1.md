@@ -71,4 +71,14 @@ Verify on aws
 -----
 <img width="1418" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/6be4663f-4c68-4b59-ac9b-e8048c417db9">
 
+> Observations:
 
+    -    A new file is created terraform.tfstate This is how Terraform keeps itself up to date with the exact state of the infrastructure. It reads this file to know what already exists, what should be added, or destroyed based on the entire terraform code that is being developed.
+    -    If you also observed closely, you would realize that another file gets created during planning and apply. But this file gets deleted immediately. terraform.tfstate.lock.info This is what Terraform uses to track, who is running its code against the infrastructure at any point in time. This is very important for teams working on the same Terraform repository at the same time. The lock prevents a user from executing Terraform configuration against the same infrastructure when another user is doing the same – it allows to avoid duplicates and conflicts.
+It looks like this:
+```
+{"ID":"08887bf0-8171-6457-9f43-9375d2070577","Operation":"OperationTypeApply","Info":"","Who":"ec2-user@ip-10-0-1-173.ec2.internal","Version":"1.5.4","Created":"2023-08-08T10:22:32.01334311Z","Path":"terraform.tfstate"}
+```
+It is a json format file that stores information about a user: user’s ID, what operation he/she is doing, timestamp, and location of the state file.
+
+### Subnets resource section
