@@ -133,3 +133,18 @@ _To destroy whatever has been created run terraform destroy command, and type ye
 __result of the destruction__
 -----
 <img width="1418" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/d54e1ea1-61aa-4745-a431-bae9ced0e2f7">
+
+
+### Fixing The Problems By Code Refactoring
+-    Fixing Hard Coded Values: We will introduce variables, and remove hard coding.
+    -    Starting with the provider block, declare a variable named region, give it a default value, and update the provider section by referring to the declared variable.
+     ```
+            variable "region" {
+        default = "eu-central-1"
+    }
+
+    provider "aws" {
+        region = var.region
+    }
+
+     ```
