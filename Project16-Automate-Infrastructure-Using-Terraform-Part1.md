@@ -463,4 +463,4 @@ preferred_number_of_public_subnets = 2
 ##### Run terraform plan to make sure everything works fine. Remember to destroy the infrastructure to save costs if you did terraform apply
 
 <img width="1418" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/24c5803f-ff48-4d1c-880b-c6027763c276">
-![Uploading image.png…]()
+<img width="1418" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/3e442f66-d01b-4854-91f6-38500d383c3b">
