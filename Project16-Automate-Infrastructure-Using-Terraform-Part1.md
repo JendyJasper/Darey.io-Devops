@@ -14,3 +14,12 @@ The below is the s3 bucket created on aws
 -----
 <img width="1041" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/1a5da328-191b-40c4-acec-87d8c410f848">
 
+### Basic Infrastructure Automation(VPC | Subnets)
+
+Let us create a directory structure:
+-    Create a folder called `PBL`
+-    Create a file in the folder, name it `main.tf`
+It looks like this:
+-----
+<img width="1418" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/1fffbccf-425c-496f-aa49-f8ff28fe737c">
+-----
