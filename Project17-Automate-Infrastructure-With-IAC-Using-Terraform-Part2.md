@@ -1378,5 +1378,7 @@ tags = {
 -  we have a long list of files which may looks confusing but that is not bad for a start, we are going to fix this using the concepts of modules in Project 18
 -  Secondly, our application wont work becuase in our shell script that was passed into the launch template some endpoints like the RDs and EFS point is needed in which they have not been created yet. So in project 19 we will use our Ansible knowledge to fix this.
 
+## Everything was successfully created as seen in the image below
 -----
-<img width="1440" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/8e6b057b-4539-400c-a683-ab5cd986c1ab">
+<img width="1440" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/d3d24982-488e-4800-b182-69e804c2b846">
+
