@@ -136,3 +136,70 @@ resource "aws_nat_gateway" "nat" {
 <img width="1144" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/d9d03e24-267c-4840-acca-94b808c1a391">
 -----
 <img width="1144" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/783a33c0-931f-45b8-bfa8-85e76395eb73">
+
+### AWS ROUTES
+_Create a file called route_tables.tf and use it to create routes for both public and private subnets, create the below resources. Ensure they are properly tagged._
+
+  -  aws_route_table
+  -  aws_route
+  -  aws_route_table_association
+
+```
+# create private route table
+resource "aws_route_table" "private-rtb" {
+  vpc_id = aws_vpc.main.id
+
+  tags = merge(
+    var.tags,
+    {
+      Name = format("%s-Private-Route-Table", var.name)
+    },
+  )
+}
+
+# associate all private subnets to the private route table
+resource "aws_route_table_association" "private-subnets-assoc" {
+  count          = length(aws_subnet.private[*].id)
+  subnet_id      = element(aws_subnet.private[*].id, count.index)
+  route_table_id = aws_route_table.private-rtb.id
+}
+
+# create route table for the public subnets
+resource "aws_route_table" "public-rtb" {
+  vpc_id = aws_vpc.main.id
+
+  tags = merge(
+    var.tags,
+    {
+      Name = format("%s-Public-Route-Table", var.name)
+    },
+  )
+}
+
+# create route for the public route table and attach the internet gateway
+resource "aws_route" "public-rtb-route" {
+  route_table_id         = aws_route_table.public-rtb.id
+  destination_cidr_block = "0.0.0.0/0"
+  gateway_id             = aws_internet_gateway.ig.id
+}
+
+# associate all public subnets to the public route table
+resource "aws_route_table_association" "public-subnets-assoc" {
+  count          = length(aws_subnet.public[*].id)
+  subnet_id      = element(aws_subnet.public[*].id, count.index)
+  route_table_id = aws_route_table.public-rtb.id
+}
+```
+> Now if you run terraform plan and terraform apply it will add the following resources to AWS in multi-az set up:
+* Our main vpc
+* 2 Public subnets
+* 4 Private subnets
+* 1 Internet Gateway
+* 1 NAT Gateway
+* 1 EIP
+* 2 Route tables
+-----
+<img width="1144" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/c43d52f0-6d71-4234-9c3b-d0a190579db1">
+
+
+__Now, we are done with Networking part of AWS set up, let us move on to Compute and Access Control configuration automation using Terraform!__
