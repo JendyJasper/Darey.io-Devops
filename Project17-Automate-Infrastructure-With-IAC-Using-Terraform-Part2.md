@@ -534,3 +534,9 @@ resource "aws_security_group_rule" "inbound-mysql-webserver" {
 }
 ```
 # We used the aws_security_group_rule to reference another security group in a security group.
+-----
+<img width="1419" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/776ed56c-6d4d-4934-8c8e-128259b50910">
+
+
+-----
+
