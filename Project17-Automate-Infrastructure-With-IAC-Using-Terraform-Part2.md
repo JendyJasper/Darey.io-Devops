@@ -99,3 +99,40 @@ tags = merge(
 -----
 <img width="1144" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/8415dea1-a26f-4be3-9031-3eddc494c7e9">
 
+### NAT Gateways
+_Create 1 NAT Gateways and 1 Elastic IP (EIP) addresses_
+
+_Now use similar approach to create the NAT Gateways in a new file called natgateway.tf._
+
+_Note: We need to create an Elastic IP for the NAT Gateway, and you can see the use of depends_on to indicate that the Internet Gateway resource must be available before this should be created. Although Terraform does a good job to manage dependencies, but in some cases, it is good to be explicit._
+
+```
+resource "aws_eip" "nat_eip" {
+  depends_on = [aws_internet_gateway.ig]
+
+  tags = merge(
+    var.tags,
+    {
+      Name = format("%s-EIP", var.nat_eip_tags)
+    },
+  )
+}
+
+resource "aws_nat_gateway" "nat" {
+  allocation_id = aws_eip.nat_eip.id
+  subnet_id     = element(aws_subnet.public.*.id, 0)
+  depends_on    = [aws_internet_gateway.ig]
+
+  tags = merge(
+    var.tags,
+    {
+      Name = format("%s-Nat", var.nat_gateway_tags)
+    },
+  )
+}
+```
+> i have set the variables for both in the variable file
+-----
+<img width="1144" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/d9d03e24-267c-4840-acca-94b808c1a391">
+-----
+<img width="1144" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/783a33c0-931f-45b8-bfa8-85e76395eb73">
