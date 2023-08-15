@@ -84,7 +84,7 @@ tags = merge(
 ```
 -----
 <img width="1144" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/8038301f-d519-41da-98ec-d662ab72717c">
------
+
 
 > The number started from zero because the index starts at 0. you can tweak it by adding +1 to count.index as shown below:
 ```
@@ -98,4 +98,4 @@ tags = merge(
 
 -----
 <img width="1144" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/8415dea1-a26f-4be3-9031-3eddc494c7e9">
------
+
