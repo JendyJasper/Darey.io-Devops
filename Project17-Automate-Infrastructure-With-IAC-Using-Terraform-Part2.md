@@ -9,6 +9,7 @@ tags = {
   Managed-By      = "Terraform"
   Billing-Account = "1234567890"
 }
+```
 
 > Update the variables.tf to declare the variable tags used in the format above;
 
