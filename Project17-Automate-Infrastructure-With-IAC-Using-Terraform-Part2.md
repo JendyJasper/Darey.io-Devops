@@ -11,6 +11,7 @@ tags = {
 }
 
 > Update the variables.tf to declare the variable tags used in the format above;
+
 ```
 variable "tags" {
   description = "A mapping of tags to assign to all resources."
@@ -20,6 +21,7 @@ variable "tags" {
 ```
 
 > Now you can tag all you resources using the format below
+
 ```
 tags = merge(
     var.tags,
@@ -29,7 +31,9 @@ tags = merge(
     },
   )
   ```
+
 **The merge function here combines all the tags you defined in the tfvars file and any other tag you may define inline in the resource**
+
 -----
 ![image](https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/648bbbc7-387d-4999-9e70-43049dbf2b19)
 -----
