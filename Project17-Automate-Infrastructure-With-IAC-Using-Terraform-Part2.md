@@ -1337,5 +1337,46 @@ _update the last file which is terraform.tfvars file. In this file we are going 
 
 -  Open the terraform.tfvars file and add the code below
 ```
+region = "us-east-1"
 
+vpc_cidr = "172.16.0.0/16"
 
+enable_dns_support = "true"
+
+enable_dns_hostnames = "true"
+
+enable_classiclink = "false"
+
+enable_classiclink_dns_support = "false"
+
+preferred_number_of_public_subnets = "2"
+
+preferred_number_of_private_subnets = "4"
+
+environment = "production"
+
+ami = "ami-0b0af3577fe5e3532"
+
+keypair = "devops"
+
+# Ensure to change this to your acccount number
+account_no = "571207880192"
+
+db-username = "jendyjasper"
+
+db-password = "devopspbl"
+tags = {
+  Enviroment      = "production" 
+  Owner-Email     = "jendydevops@gmail.com"
+  Managed-By      = "Terraform"
+  Billing-Account = "571207880192"
+}
+```
+
+> before we paln and apply our code we need to take note of two things;
+
+-  we have a long list of files which may looks confusing but that is not bad for a start, we are going to fix this using the concepts of modules in Project 18
+-  Secondly, our application wont work becuase in our shell script that was passed into the launch template some endpoints like the RDs and EFS point is needed in which they have not been created yet. So in project 19 we will use our Ansible knowledge to fix this.
+
+-----
+<img width="1440" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/8e6b057b-4539-400c-a683-ab5cd986c1ab">
