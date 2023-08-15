@@ -40,4 +40,4 @@ tags = merge(
 -----
 
 <img width="362" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/5bbaa2a3-d912-4e92-a4dd-488185f71c7a">
-------
+
