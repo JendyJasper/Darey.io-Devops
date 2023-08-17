@@ -126,4 +126,146 @@ output "dynamodb_table_name" {
 - Terraform Workspaces
 - Directory-based separation using terraform.tfvars file
 
+### Security Groups refactoring with dynamic block
+### For repetitive blocks of code you can use dynamic blocks in Terraform
+> Remember, every piece of work you do, always try to make it dynamic to accommodate future changes. Amazon Machine Image (AMI) is a regional service which means it is only available in the region it was created. But what if we change the region later, and want to dynamically pick up AMI IDs based on the available AMIs in that region? This is where we will introduce Map and Lookup functions.
 
+-  Map uses a key and value pairs as a data structure that can be set as a default type for variables.
+```
+variable "images" {
+    type = "map"
+    default = {
+        us-east-1 = "image-1234"
+        us-west-2 = "image-23834"
+    }
+}
+```
+>  To select an appropriate AMI per region, we will use a lookup function which has following syntax: `lookup(map, key, [default])`.
+
+>  Note: A default value is better to be used to avoid failure whenever the map data has no key.
+
+```
+resource "aws_instace" "web" {
+    ami  = "${lookup(var.images, var.region), "ami-12323"}
+}
+```
+_Now, the lookup function will load the variable images using the first parameter. But it also needs to know which of the key-value pairs to use. That is where the second parameter comes in. The key us-east-1 could be specified, but then we will not be doing anything dynamic there, but if we specify the variable for region, it simply resolves to one of the keys. That is why we have used var.region in the second parameter._
+
+### Conditional Expressions
+
+-  If you want to make some decision and choose some resource based on a condition – you shall use Terraform Conditional Expressions.
+-  In general, the syntax is as following: condition ? true_val : false_val
+```
+resource "aws_db_instance" "read_replica" {
+  count               = var.create_read_replica == true ? 1 : 0
+  replicate_source_db = aws_db_instance.this.id
+}
+```
+-  `true` #condition equals to ‘if true’
+-  `?` #means, set to ‘1`
+-  `:` #means, otherwise, set to ‘0
+
+### Terraform Modules and best practices to structure your .tf codes
+> Modules serve as containers that allow to logically group Terraform codes for similar resources in the same domain (e.g., Compute, Networking, AMI, etc.). One root module can call other child modules and insert their configurations when applying Terraform config. 
+
+>  You can refer to existing child modules from your root module by specifying them as a source, like this:
+```
+module "network" {
+  source = "./modules/network"
+}
+```
+-  Note that the path to ‘network’ module is set as relative to your working directory.
+
+-  Or you can also directly access resource outputs from the modules, like this:
+```
+resource "aws_elb" "example" {
+  # ...
+
+  instances = module.servers.instance_ids
+}
+```
+
+### REFACTOR YOUR PROJECT USING MODULES
+-  Break down your Terraform codes to have all resources in their respective modules. Combine resources of a similar type into directories within a ‘modules’ directory, for example, like this:
+```
+- modules
+  - ALB: For Apllication Load balancer and similar resources
+  - EFS: For Elastic file system resources
+  - RDS: For Databases resources
+  - Autoscaling: For Autosacling and launch template resources
+  - compute: For EC2 and rlated resources
+  - VPC: For VPC and netowrking resources such as subnets, roles, e.t.c.
+  - security: for creating security group resources
+```
+- Each module shall contain following files:
+```
+- main.tf (or %resource_name%.tf) file(s) with resources blocks
+- outputs.tf (optional, if you need to refer outputs from any of these resources in your root module)
+- variables.tf (as we learned before - it is a good practice not to hard code the values and use variables)
+```
+**It is also recommended to configure providers and backends sections in separate files but should be placed 
+in the root module.**
+
+-  Import module as a `source` and have access to its variables via `var` keyword:
+```
+module "VPC" {
+  source = "./modules/VPC"
+  region = var.region
+  ...
+```
+
+- Refer to a module’s output by specifying the full path to the output variable by using `module.%module_name%.%output_name%` construction:
+
+`subnets-compute = module.network.public_subnets-1`
+
+#### the resulting configuration structure in your working directory may look like this:
+
+-----
+<img width="442" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/6a021560-afcb-4974-985a-635044b046ca">
+
+-----
+### CREATED RESOURCES BELOW
+
+-----
+EC2
+-----
+
+![image](https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/b416bf31-d5ee-4843-b511-8762377a8e95)
+
+-----
+EFS
+-----
+
+![image](https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/ae72554d-55f5-4fdb-ac3a-2169eb8df99a)
+
+-----
+VPC and SUBNETS
+
+-----
+![image](https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/58f87c38-2df4-48a3-8ca6-4677a3942ec4)
+
+-----
+
+NAT GATEWAY
+-----
+![image](https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/a4d954cf-7108-44bb-ad40-821cb62c30d6)
+
+-----
+
+ASG
+-----
+![image](https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/9fbd9a27-7de7-46d9-99b5-b7ca900683eb)
+
+-----
+Target Groups
+-----
+![image](https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/7d4c0da4-72be-45d1-afb8-e53c865d3101)
+
+-----
+RDS
+-----
+![image](https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/09a2ea3f-9db1-45ac-8b25-5cdb48bee605)
+
+and a few other reources
+
+https://github.com/JendyJasper/terraform-prov-mgt/tree/project-18
