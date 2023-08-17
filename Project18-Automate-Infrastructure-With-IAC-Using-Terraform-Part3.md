@@ -72,6 +72,58 @@ terraform {
 
 tfstatefile is now inside the S3 bucket
 
+-----
 ![image](https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/1d06cdcc-58c7-4e35-89c0-16d9b0fd0850)
+-----
+
+-  DynamoDB table which we create has an entry which includes state file status
+
+-----
+![image](https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/b1272d3a-683a-47ed-88d6-5a1d58d4d21d)
+-----
+
+Navigate to the DynamoDB table inside AWS and leave the page open in your browser. Run terraform plan and while that is running, refresh the browser and see how the lock is being handled:
+
+-----
+![image](https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/364babac-2a57-43fc-869a-67c8b277f3b2)
+-----
+
+-  After terraform plan completes, refresh DynamoDB table.
+-----
+![image](https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/f58daca7-0796-4cad-bc28-f01a6fd2e46c)
+-----
+
+-  Add Terraform Output
+
+> Before you run terraform apply let us add an output so that the S3 bucket Amazon Resource Names ARN and DynamoDB table name can be displayed.
+
+*  Create a new file and name it output.tf and add below code.
+```
+output "s3_bucket_arn" {
+  value       = aws_s3_bucket.terraform_state.arn
+  description = "The ARN of the S3 bucket"
+}
+output "dynamodb_table_name" {
+  value       = aws_dynamodb_table.terraform_locks.name
+  description = "The name of the DynamoDB table"
+}
+```
+-  Now we have everything ready to go!
+-  Let us run terraform apply
+
+>  Terraform will automatically read the latest state from the S3 bucket to determine the current state of the infrastructure. Even if another engineer has applied changes, the state file will always be up to date.
+
+>  Now, head over to the S3 console again, refresh the page, and click the grey “Show” button next to “Versions.” You should now see several versions of your terraform.tfstate file in the S3 bucket:
+
+![image](https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/fc7abd0b-7679-4851-bf50-d10512a38ea4)
+
+> With help of remote backend and locking configuration that we have just configured, collaboration is no longer a problem.
+
+> However, there is still one more problem: Isolation Of Environments. Most likely we will need to create resources for different environments, such as: Dev, sit, uat, preprod, prod, etc.
+
+> This separation of environments can be achieved using one of two methods:
+
+a. Terraform Workspaces
+b. Directory-based separation using terraform.tfvars file
 
 
