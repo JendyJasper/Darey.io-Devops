@@ -123,7 +123,7 @@ output "dynamodb_table_name" {
 
 > This separation of environments can be achieved using one of two methods:
 
-a. Terraform Workspaces
-b. Directory-based separation using terraform.tfvars file
+- Terraform Workspaces
+- Directory-based separation using terraform.tfvars file
 
 
