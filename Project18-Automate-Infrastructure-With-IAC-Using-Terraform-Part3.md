@@ -72,4 +72,6 @@ terraform {
 
 tfstatefile is now inside the S3 bucket
 
+![image](https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/1d06cdcc-58c7-4e35-89c0-16d9b0fd0850)
+
 
