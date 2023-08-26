@@ -10,3 +10,6 @@ Terraform Cloud executes Terraform commands on disposable virtual machines, this
 
 ### Migrate your .tf codes to Terraform Cloud
 1. Create a Terraform Cloud account
+2. ![image](https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/4af04256-0b8d-4175-a14f-e750eb5d2adc)
+3. 
+
