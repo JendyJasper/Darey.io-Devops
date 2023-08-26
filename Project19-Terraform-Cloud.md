@@ -38,6 +38,13 @@ Terraform Cloud executes Terraform commands on disposable virtual machines, this
 21. Test automated terraform plan
 22. By now, you have tried to launch plan and apply manually from Terraform Cloud web console. But since we have an integration with GitHub, the process can be triggered automatically. Try to change something in any of .tf files and look at “Runs” tab again – plan must be launched automatically, but to apply you still need to approve manually. Since provisioning of new Cloud resources might incur significant costs. Even though you can configure “Auto apply”, it is always a good idea to verify your plan results before pushing it to apply to avoid any misconfigurations that can cause ‘bill shock’.
 
+PACKER
+What is Packer?
+Packer is a tool that lets you create identical machine images for multiple platforms from a single source template. Packer can create golden images to use in image pipelines. 
+When you create and run packer build, you should get similar result to that shown below.
+<img width="1431" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/a7782972-aa80-4bdb-ba1b-cc65c7207c34">
+Verify the AMIs created on AWS.
+<img width="1431" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/d571df1d-fd26-44ff-90a2-03721e599842">
 
 
 
