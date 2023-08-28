@@ -47,6 +47,18 @@ When you create and run packer build, you should get similar result to that show
 Verify the AMIs created on AWS.
 <img width="1431" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/d571df1d-fd26-44ff-90a2-03721e599842">
 
+### Use ansible to run the configurations on the tooling webserver, wordpress webserver and nginx webserver
+
+-----
+
+<img width="1439" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/9aebf47a-f813-4cb2-a67a-30c592e1e220">
+-----
+
+![image](https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/49dae532-605a-4b62-8b15-8ba2c490f79c)
+
+-----
+
+
 
 
 
