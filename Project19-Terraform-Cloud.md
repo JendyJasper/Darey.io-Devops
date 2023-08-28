@@ -60,6 +60,9 @@ Verify the AMIs created on AWS.
 
 ![image](https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/c8c89c44-72e9-4d10-b4bb-86a7f593f049)
 
+### Notification sent to email
+
+![image](https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/ef7fe9c1-7fae-44e6-8440-3410c7590798)
 
 
 
