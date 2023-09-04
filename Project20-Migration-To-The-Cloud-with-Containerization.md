@@ -52,3 +52,35 @@ Change the server root password to protect your database. Exit the the shell wit
 
 **Approach 2**
 *At this stage you are now able to create a docker container but we will need to add a network. So, stop and remove the previous mysql docker container.*
+```
+sudo docker ps -a
+sudo docker stop mysqldb 
+sudo docker rm mysqldb or <container ID> 04a34f46fb98
+```
+-----
+<img width="1129" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/3bee0252-4581-4394-9d32-f1cb178b70a7">
+-----
+
+**First, create a network
+For clarity’s sake, we will create a network with a subnet dedicated to our project and use it for both MySQL and the application so that they can connect: `docker network create --subnet=172.18.0.0/24 tooling_app_network`
+
+-----
+<img width="1129" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/633e7c01-4664-4d9f-b447-b77bed74a822">
+
+*Run the MySQL Server container using the created network.*
+-  First, let us create an environment variable to store the root password: `export $MYSQL_PW=<value>`
+-  Verify the environment variable is created: `echo $MYSQL_PW`
+-  Then, pull the image and run the container, all in one command like below: `sudo docker run --network tooling_app_network -h mysqldbhost --name=mysqldb -e MYSQL_ROOT_PASSWORD=$MYSQL_PW  -d mysql:latest`
+
+**Flags used**
+  -  `-d` runs the container in detached mode
+  -  `--network` connects a container to a network
+  -  `-h` specifies a hostname
+
+If the image is not found locally, it will be downloaded from the registry.
+Verify the container is running: `sudo docker ps -a`
+
+-----
+<img width="1349" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/49ac1ba5-4e68-43f1-9754-e60671ec7c90">
+-----
+
