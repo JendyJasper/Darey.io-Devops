@@ -82,5 +82,37 @@ Verify the container is running: `sudo docker ps -a`
 
 -----
 <img width="1349" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/49ac1ba5-4e68-43f1-9754-e60671ec7c90">
+
+
+> It is best practice not to connect to the MySQL server remotely using the root user. Therefore, we will create an SQL script that will create a user we can use to connect remotely.
+
+Create a file and name it `create_user.sql` and add the below code in the file: `CREATE USER 'jendy'@'%' IDENTIFIED BY 'jendyjasper'; GRANT ALL PRIVILEGES ON * . * TO 'jendy'@'%';`
+*Run the script:*
+*  Ensure you are in the directory create_user.sql file is located or declare a path
+*  `sudo docker exec -i mysqldb mysql -uroot -p$MYSQL_PW < create_user.sql`
 -----
+<img width="1349" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/4581a6d5-05fa-4e4a-9bb6-91fad9ac2eb0">
+
+verify you can login using the username and password: `sudo docker exec -it mysqldb mysql -ujendy -pjendyjasper`
+
+-----
+<img width="810" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/e3496e39-39b9-4040-b184-3fbf190f7da9">
+
+### Connecting to the MySQL server from a second container running the MySQL client utility
+The good thing about this approach is that you do not have to install any client tool on your laptop, and you do not need to connect directly to the container running the MySQL server.
+
+**Flags used:**
+  -  `--name` gives the container a name
+  -  `-it` runs in interactive mode and Allocate a pseudo-TTY
+  -  `-rm` automatically removes the container when it exits
+  -  `--network` connects a container to a network
+  -  `-h` a MySQL flag specifying the MySQL server Container hostname
+  -  `-u` user created from the SQL script
+  -  `admin` username-for-user-created-from-the-SQL-script-create_user.sql
+  -  `-p` password specified for the user created from the SQL script
+
+-----
+<img width="1413" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/8609fc04-9ce0-4b4c-956d-548dc75a35fe">
+
+### Prepare database schema
 
