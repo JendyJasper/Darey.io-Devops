@@ -166,4 +166,8 @@ MYSQL_DBNAME=toolingdb
 Let us observe those flags in the command.
 -  We need to specify the `--network` flag so that both the Tooling app and the database can easily connect on the same virtual network we created earlier.
 -  The `-p` flag is used to map the container port with the host port. Within the container, apache is the webserver running and, by default, it listens on port 80. You can confirm this with the CMD ["start-apache"] section of the Dockerfile. But we cannot directly use port 80 on our host machine because it is already in use. The workaround is to use another port that is not used by the host machine. In our case, port 8085 is free, so we can map that to port 80 running in the container.
--  
+
+-----
+
+<img width="1434" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/5b6e549a-0b5b-43b0-9266-b46e97e454fc">
+
