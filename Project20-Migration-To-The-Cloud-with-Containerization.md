@@ -115,4 +115,55 @@ The good thing about this approach is that you do not have to install any client
 <img width="1413" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/8609fc04-9ce0-4b4c-956d-548dc75a35fe">
 
 ### Prepare database schema
+*Now you need to prepare a database schema so that the Tooling application can connect to it.*
+-  Clone the Tooling-app repository: `git clone https://github.com/darey-devops/tooling.git`
+-  On your terminal, export the location of the SQL file: `export tooling_db_schema=/tooling_db_schema.sql`
+-  You can find the `tooling_db_schema.sql` in the `tooling/html/tooling_db_schema.sql` folder of cloned repo.
+-  Verify that the path is exported: `echo $tooling_db_schema`
 
+-----
+<img width="1413" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/64cd783f-7a0a-45e0-a818-4e5a1f9d9157">
+
+-----
+
+**Use the SQL script to create the database and prepare the schema. With the docker exec command, you can execute a command in a running container.**
+`sudo docker exec -i mysqldb mysql -uroot -p$MYSQL_PW < $tooling_db_schema`
+
+**Update the .env file with connection details to the database**
+The .env file is located in the html tooling/html/.env folder but not visible in terminal. you can use vi or nano:
+```
+sudo nano .env
+
+MYSQL_IP=mysqldbhost
+MYSQL_USER=jendy
+MYSQL_PASS=jendyjasper
+MYSQL_DBNAME=toolingdb
+```
+**Flags used:**
+  -  `MYSQL_IP` mysql ip address “leave as mysqldbhost”
+  -  `MYSQL_USER` mysql username for user export as environment variable
+  -  `MYSQL_PASS` mysql password for the user exported as environment varaible
+  -  `MYSQL_DBNAME` mysql databse name “toolingdb”
+
+**Run the Tooling App**
+> Containerization of an application starts with creation of a file with a special name – ‘Dockerfile’ (without any extensions). This can be considered as a ‘recipe’ or ‘instruction’ that tells Docker how to pack your application into a container.
+
+**So, let us containerize our Tooling application; here is the plan:**
+-  Make sure you have checked out your Tooling repo to your machine with Docker engine
+-  First, we need to build the Docker image the tooling app will use. The Tooling repo you cloned above has a Dockerfile for this purpose. Explore it and make sure you understand the code inside it.
+-  Run `docker build` command
+-  Launch the container with docker run
+-  Try to access your application via port exposed from a container
+
+
+**Let us begin:**
+-  Ensure you are inside the directory “tooling” that has the file Dockerfile and build your container : `sudo docker build -t tooling:0.0.1 .`
+-  In the above command, we specified a parameter -t, so that the image can be tagged tooling"0.0.1 – Also, you have to notice the `.` at the end. This is important as that tells Docker to locate the Dockerfile in the current directory you are running the command. Otherwise, you would need to specify the absolute path to the Dockerfile.
+
+**Run the container:**
+`sudo docker run --network tooling_app_network -p 8085:80 -it tooling:0.0.1`
+
+Let us observe those flags in the command.
+-  We need to specify the `--network` flag so that both the Tooling app and the database can easily connect on the same virtual network we created earlier.
+-  The `-p` flag is used to map the container port with the host port. Within the container, apache is the webserver running and, by default, it listens on port 80. You can confirm this with the CMD ["start-apache"] section of the Dockerfile. But we cannot directly use port 80 on our host machine because it is already in use. The workaround is to use another port that is not used by the host machine. In our case, port 8085 is free, so we can map that to port 80 running in the container.
+-  
