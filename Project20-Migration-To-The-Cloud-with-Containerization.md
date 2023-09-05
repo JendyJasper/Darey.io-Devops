@@ -172,6 +172,8 @@ Let us observe those flags in the command.
 <img width="1434" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/5b6e549a-0b5b-43b0-9266-b46e97e454fc">
 
 # PRACTICE TASK
+
+## Part 1
 1. Download php-todo repository from [here](https://github.com/darey-devops/php-todo)
 2. Write a Dockerfile for the TODO app
 3. Run both database and app on your laptop Docker Engine
@@ -235,5 +237,36 @@ The loaded todo webpage
 <img width="1412" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/e9c1f070-2f4d-4142-8aae-82320f400969">
 
 
+## Part 2
+1. Create an account in Docker Hub
+2. Create a new Docker Hub repository
+3. Push the docker images from your PC to the repository
+
+-----
+
+DockerHub Repo
+
+![image](https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/4cd494fc-4003-4f90-86b1-973d436b4f51)
 
 
+-----
+Login to docker Hub on CLI
+
+<img width="1369" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/8a140f67-ab4a-4649-a4f6-500337f4dac0">
+
+-----
+
+On The CLI, Use the `docker tag` command to give the `todo:v1.0` image a new name. Replace jendyjasper with your Docker ID.
+`sudo docker tag todo:v1.0 jendyjasper/todo:v1.0`. A new image is created after then with the repository name inclusive. Then, push to docker hub: `sudo docker push jendyjasper/todo:v1.0`
+
+<img width="930" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/dfdee96a-0af6-4914-9d46-ff6abcb8217e">
+
+-----
+
+Result on Dockerhub showing the pushed image
+
+![image](https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/b12950bd-1f51-4078-8030-861d5783280a)
+
+-----
+
+![image](https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/b9c59ef1-38b0-4aa2-8ee3-1cfcba882455)
