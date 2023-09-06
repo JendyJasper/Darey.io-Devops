@@ -270,3 +270,72 @@ Result on Dockerhub showing the pushed image
 -----
 
 ![image](https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/b9c59ef1-38b0-4aa2-8ee3-1cfcba882455)
+
+
+## Part 3
+-  Write a Jenkinsfile that will simulate a Docker Build and a Docker Push to the registry
+-  Connect your repo to Jenkins
+-  Create a multi-branch pipeline
+-  Simulate a CI pipeline from a feature and master branch using previously created Jenkinsfile
+-  Ensure that the tagged images from your Jenkinsfile have a prefix that suggests which branch the image was pushed from. For example, feature-0.0.1.
+-  Verify that the images pushed from the CI can be found at the registry.
+
+**Below is my Jenkinsfile contents:**
+```
+pipeline {
+    agent any
+
+    environment { 
+        //use the BRANCH_NAME and Build_ID environment variables to tag the image versions
+        VERSION = "${env.BRANCH_NAME}-V1.${env.BUILD_ID}"
+}
+
+    stages {
+
+        stage('Docker Build') {
+            steps {
+                sh 'sudo docker build -t todo:${VERSION} .'
+                
+            }
+        }
+
+        stage('Change tagname') {
+            steps {
+                sh 'sudo docker tag todo:${VERSION} jendyjasper/todo:${VERSION}'
+            }        
+        }
+
+        stage ('Push to Docker Hub') {
+            steps {
+                sh 'sudo docker push jendyjasper/todo:${VERSION}'
+            }
+        }
+        
+        stage ('Delete Image Locally') {
+            steps{
+                sh 'sudo docker rmi jendyjasper/todo:${VERSION}'
+                sh 'sudo docker rmi todo:${VERSION}'
+            } 
+        }
+    }
+}
+```
+
+-----
+
+The jenkins CI dashboard showing both master branch and feature branch
+
+<img width="1422" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/a5c99eb0-99d3-41db-9eb2-591d910ca05a">
+
+-----
+
+<img width="1422" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/c6f0493a-be82-4267-bda3-b33d8c4d398b">
+
+-----
+
+<img width="1422" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/a1628fb3-7059-4d1b-9815-12c0fb1aea7d">
+
+-----
+**The docker hub registry showing the images pushed to docker hub, with the branches showing on the tag name. You will see the images pushed from the feature branch have a prefix of feature while those pushed from the main branch have prefix of main**
+
+<img width="1422" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/f2ed373d-c297-43e2-9012-b9044a710180">
