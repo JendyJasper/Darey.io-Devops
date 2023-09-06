@@ -333,6 +333,10 @@ The jenkins CI dashboard showing both master branch and feature branch
 
 -----
 
+<img width="1422" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/a014a20a-bb04-455f-848f-d9632cb3578b">
+
+-----
+
 <img width="1422" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/a1628fb3-7059-4d1b-9815-12c0fb1aea7d">
 
 -----
