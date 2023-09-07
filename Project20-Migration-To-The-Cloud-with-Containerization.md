@@ -86,7 +86,7 @@ Verify the container is running: `sudo docker ps -a`
 
 > It is best practice not to connect to the MySQL server remotely using the root user. Therefore, we will create an SQL script that will create a user we can use to connect remotely.
 
-Create a file and name it `create_user.sql` and add the below code in the file: `CREATE USER 'jendy'@'%' IDENTIFIED BY 'jendyjasper'; GRANT ALL PRIVILEGES ON * . * TO 'jendy'@'%';`
+Create a file and name it `create_user.sql` and add the below code in the file: `CREATE USER 'jendy'@'%' IDENTIFIED WITH mysql_native_password BY 'jendyjasper'; GRANT ALL PRIVILEGES ON * . * TO 'jendy'@'%';`
 *Run the script:*
 *  Ensure you are in the directory create_user.sql file is located or declare a path
 *  `sudo docker exec -i mysqldb mysql -uroot -p$MYSQL_PW < create_user.sql`
