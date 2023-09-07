@@ -343,3 +343,61 @@ The jenkins CI dashboard showing both master branch and feature branch
 **The docker hub registry showing the images pushed to docker hub, with the branches showing on the tag name. You will see the images pushed from the feature branch have a prefix of feature while those pushed from the main branch have prefix of main**
 
 <img width="1422" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/f2ed373d-c297-43e2-9012-b9044a710180">
+
+
+
+-----
+
+# Deployment with Docker Compose
+
+1.  First, install Docker Compose on your workstation from [here](https://docs.docker.com/compose/install/)
+2.  Create a file, name it tooling.yaml
+3.  Begin to write the Docker Compose definitions with YAML syntax. The YAML file is used for defining services, networks, and volumes:
+
+```
+version: "3.9"
+services:
+  tooling_frontend:
+    build: .
+    ports:
+      - "5000:80"
+    volumes:
+      - tooling_frontend:/var/www/html
+```
+  -  version: Is used to specify the version of Docker Compose API that the Docker Compose engine will connect to. This field is optional from docker compose version v1.27.0. You can verify your installed version with:
+  -  service: A service definition contains a configuration that is applied to each container started for that service. In the snippet above, the
+    only service listed there is tooling_frontend. So, every other field under the tooling_frontend service will execute some commands that relate only to that service. Therefore, all the below-listed fields relate to the tooling_frontend service.
+  -  build: Requires it to build the image from the Dockerfile
+  -  port: the port number of the host machine binded to the port number exposed on the docker container - hostPort:containerPort
+  -  volumes: Saves the storage space of the container to the host machine for persistency  
+  -  links: Creates a additional connection name that allows the running containers to communicate with each other using the specified link names
+
+```
+version: "3.9"
+services:
+  tooling_frontend:
+    build: .
+    ports:
+      - "5000:80"
+    volumes:
+      - tooling_frontend:/var/www/html
+    links:
+      - db
+  db:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_DATABASE: <The database name required by Tooling app >
+      MYSQL_USER: <The user required by Tooling app >
+      MYSQL_PASSWORD: <The password required by Tooling app >
+      MYSQL_RANDOM_ROOT_PASSWORD: '1'
+    volumes:
+      - db:/var/lib/mysql
+volumes:
+  tooling_frontend:
+  db:
+```
+
+-  Run the command to start the containers: `docker-compose -f tooling.yaml  up -d `
+-  Verify that the compose is in the running status: `docker compose ls`
+
