@@ -527,4 +527,9 @@ Delete all the images and containers
 
 ![image](https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/cc1362dd-9390-4b04-97b3-624269969f97)
 
+-----
+
+Image pushed to docker hub after succesfful test
+
+![image](https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/7433e9ec-9e6d-4b9d-a7f2-e6f2163d9d44)
 
