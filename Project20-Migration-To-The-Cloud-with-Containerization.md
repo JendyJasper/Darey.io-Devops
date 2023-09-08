@@ -429,10 +429,9 @@ pipeline {
 
         stage('DB Migration') {
             steps {
-                //run sudo docker exec -it todo php artisan migrate after successful run by running it on the shell 
-                sh '''#!/bin/bash
-                    sudo docker exec -it todo php artisan migrate
-                '''
+                sh 'sleep 30'
+                //run sudo docker exec -it todo php artisan migrate after successfull run by running it on the shell 
+                sh 'sudo IMG_VERSION=${VERSION} docker compose -f todo.yaml exec -T  php_frontend php artisan migrate'
                 
             }
         }
@@ -442,11 +441,11 @@ pipeline {
                 //test if running container is reachable by checking if the status code is 200 and if it's reachable, 
                 //push the image to docker hub and if not, print an error message
                 sh '''#!/bin/bash
-                    code=$(curl -s -o /dev/null -w "%{http_code}" 'http://54.146.33.56:5000/')
+                    code=$(curl -s -o /dev/null -w "%{http_code}" 'http://34.204.0.208:5004/')
                     if [[ $code == "200" ]]; then
                         sudo docker push jendyjasper/todo:${VERSION}
                     else
-                        echo "Website is unreachable, Please troubleshhot and fix the errors before pushing to docker hub"
+                        echo "Website is unreachable, Please troubleshhot and fix the errors before pushing to docker hub. Deleting created images"
                     fi
                 '''
             }
@@ -454,9 +453,7 @@ pipeline {
         
         stage ('Docker Compose Down') { //can use docker-compuse too
             steps {
-                sh '''#!/bin/bash
-                sudo IMG_VERSION=${VERSION} docker compose -f todo.yaml down
-                '''
+                sh 'sudo IMG_VERSION=${VERSION} docker compose -f todo.yaml down'
             }
         }
 
@@ -464,6 +461,7 @@ pipeline {
             steps{
                 sh '''#!/bin/bash
                 sudo docker rmi -f jendyjasper/todo:${VERSION}
+                sudo docker rmi -f mysql:latest
                 sudo docker system prune -f
                 '''
             } 
@@ -494,7 +492,7 @@ services:
       - db
 
   db:
-    image: mysql:5.7
+    image: mysql:latest
     container_name: db
     restart: always
     environment:
@@ -510,4 +508,23 @@ volumes:
 ```
 
 -----
+
+When the website doesn't return 200 ok http status code, this is the error on jenkins, and all the created images and containers stopped and deleted
+
+<img width="1422" alt="image" src="https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/9f8623ad-9c8d-41ea-a33d-0bafa062ec1f">
+
+-----
+
+When the website returns 200 ok http status code, this is the confirmation of it pushing the image to docker hub registry
+
+![image](https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/9c9dd006-3e33-463a-8278-f056009ca2e1)
+
+![image](https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/ee7529f2-7967-485d-a459-a5bb2691a21e)
+
+-----
+
+Delete all the images and containers
+
+![image](https://github.com/JendyJasper/Darey.io-Devops/assets/29708657/cc1362dd-9390-4b04-97b3-624269969f97)
+
 
