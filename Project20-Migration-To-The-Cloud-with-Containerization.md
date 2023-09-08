@@ -401,3 +401,113 @@ volumes:
 -  Run the command to start the containers: `docker-compose -f tooling.yaml  up -d `
 -  Verify that the compose is in the running status: `docker compose ls`
 
+### Practice Task №2 – Complete Continous Integration With A Test Stage
+  -  Document your understanding of all the fields specified in the Docker Compose file tooling.yaml
+  -  Update your Jenkinsfile with a test stage before pushing the image to the registry.
+  -  What you will be testing here is to ensure that the tooling site http endpoint is able to return status code 200. Any other code will be determined a stage failure.
+  -  Implement a similar pipeline for the PHP-todo app.
+  -  Ensure that both pipelines have a clean-up stage where all the images are deleted on the Jenkins server.
+
+**Jenkinsfile**
+```
+pipeline {
+    agent any
+
+    environment { 
+        //use the BRANCH_NAME and Build_ID environment variables to tag the image versions
+        VERSION = "${env.BRANCH_NAME}-V1.${env.BUILD_ID}"
+}
+
+    stages {
+
+        stage('Docker Compose UP') {
+            steps { //use this to set the env var that is been used by todo.yml compose file
+                sh 'sudo IMG_VERSION=${VERSION} docker compose -f todo.yaml up -d'
+                
+            }
+        }
+
+        stage('DB Migration') {
+            steps {
+                //run sudo docker exec -it todo php artisan migrate after successful run by running it on the shell 
+                sh '''#!/bin/bash
+                    sudo docker exec -it todo php artisan migrate
+                '''
+                
+            }
+        }
+
+        stage ('Push to Docker Hub') {
+            steps {
+                //test if running container is reachable by checking if the status code is 200 and if it's reachable, 
+                //push the image to docker hub and if not, print an error message
+                sh '''#!/bin/bash
+                    code=$(curl -s -o /dev/null -w "%{http_code}" 'http://54.146.33.56:5000/')
+                    if [[ $code == "200" ]]; then
+                        sudo docker push jendyjasper/todo:${VERSION}
+                    else
+                        echo "Website is unreachable, Please troubleshhot and fix the errors before pushing to docker hub"
+                    fi
+                '''
+            }
+        }
+        
+        stage ('Docker Compose Down') { //can use docker-compuse too
+            steps {
+                sh '''#!/bin/bash
+                sudo IMG_VERSION=${VERSION} docker compose -f todo.yaml down
+                '''
+            }
+        }
+
+        stage ('Delete Image and Prune System') {
+            steps{
+                sh '''#!/bin/bash
+                sudo docker rmi -f jendyjasper/todo:${VERSION}
+                sudo docker system prune -f
+                '''
+            } 
+        }
+
+    }
+}
+```
+-----
+**Docker Compose File.yml**
+```
+version: "3.9"
+services:
+  php_frontend:
+  #use double $$ to expand the jenkins env variable inside the container
+    image: "jendyjasper/todo:$IMG_VERSION" #define the value of this on the terminal if using jenkins
+    container_name: todo
+    build: 
+      context: .
+      # tags: 
+      #   - "jendyjasper/todo:1.1" # you can use this section to build images
+      # for multiple repos or registries.
+    ports:
+      - "5000:80"
+    volumes:
+      - php_frontend:/var/www/html
+    links:
+      - db
+
+  db:
+    image: mysql:5.7
+    container_name: db
+    restart: always
+    environment:
+      MYSQL_DATABASE: tododb
+      MYSQL_USER: jendy
+      MYSQL_PASSWORD: jendyjasper
+      MYSQL_RANDOM_ROOT_PASSWORD: '1'
+    volumes:
+      - db:/var/lib/mysql
+volumes:
+  php_frontend:
+  db:
+```
+
+-----
+
